@@ -1,7 +1,5 @@
 # Memetic
 
-# Memetic
-
 Memetic is an open source property graph schema and query language.  It defines graph schemas,  patterns for how vertices and edges (which Memetic calls entities and links, respectively) function as well a querying syntax.  It is designed to be easy to use, yet powerful.  
 
 ## The Trinity: Metamemes, Memes and Entities
