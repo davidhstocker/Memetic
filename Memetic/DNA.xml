@@ -22,9 +22,12 @@
 	<ListOfPropertyRestriction>
 		
 		<PropertyRestriction id="StateEventType">
-			<RestrictionValueInteger>0</RestrictionValueInteger>
-			<RestrictionValueInteger>1</RestrictionValueInteger>
-			<RestrictionValueInteger>2</RestrictionValueInteger>
+			<RestrictionValueString>initialize</RestrictionValueString><!--formerly 0-->
+			<RestrictionValueString>execute</RestrictionValueString><!--formerly 1-->
+			<RestrictionValueString>terminate</RestrictionValueString><!--formerly 2-->
+			<RestrictionValueString>linkAdd</RestrictionValueString>
+			<RestrictionValueString>linkRemove</RestrictionValueString>
+			<RestrictionValueString>propertiesChanged</RestrictionValueString>
 		</PropertyRestriction>
 		
 		<PropertyRestriction id="ScriptLanguage">
@@ -291,7 +294,7 @@
 
 		<!-- Scripts -->
 		<MetaMeme id="StateEventScript" singleton="true">
-			<MetaMemeProperty name="State" type="integer" restriction="StateEventType" constrained="true"/>
+			<MetaMemeProperty name="State" type="string" restriction="StateEventType" constrained="true"/>
 			<MemberMetaMeme reference="Script" min="1" max="1"/>
 		</MetaMeme>		
 		<MetaMeme id="Script" singleton="true">
@@ -316,7 +319,7 @@
 			<MemeProperty name="Language" value="python"/>
 		</Meme>
 		<Meme id="TrueSES" metameme="StateEventScript">
-			<MemeProperty name="State" value="1"/>
+			<MemeProperty name="State" value="execute"/>
 			<MemberMeme occurrence="1" memberID="TrueScript" />
 		</Meme>	
 
@@ -325,7 +328,7 @@
 			<MemeProperty name="Language" value="python"/>
 		</Meme>
 		<Meme id="FalseSES" metameme="StateEventScript">
-			<MemeProperty name="State" value="1"/>
+			<MemeProperty name="State" value="execute"/>
 			<MemberMeme occurrence="1" memberID="FalseScript" />
 		</Meme>		
 

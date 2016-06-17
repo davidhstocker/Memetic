@@ -107,7 +107,7 @@
 			<MemeProperty name="Language" value="python"/>
 		</Meme>
 		<Meme id="ConditionInitSES" metameme="Memetic.DNA.StateEventScript">
-			<MemeProperty name="State" value="0"/>
+			<MemeProperty name="State" value="initialize"/>
 			<MemberMeme occurrence="1" memberID="Memetic.Condition.ConditionInitScript" />
 		</Meme>		
 
