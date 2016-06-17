@@ -825,7 +825,7 @@ def getArgumentTypeFromConditionEntity(conditionContainer):
     if argument is None:
         memeType = script.getEntityMemeType(conditionContainer)
         statement = "CONTENT-WARNING: Unable to get argument from condition %s.  Please check the structure of the meme." %memeType
-        memeStructure = script.getAssemblyNetworkOverview(conditionContainer, 1, False)
+        memeStructure = script.getClusterMembers(conditionContainer, 1, False)
         msSatement= "Structure of problem meme = %s" %memeStructure
         script.writeError(statement)
         script.writeError(msSatement)
@@ -866,7 +866,7 @@ def getArgumentsFromConditionEntity(conditionContainer):
     if len(list(argumentInfo.values())) < 1:
         memeType = script.getEntityMemeType(conditionContainer)
         statement = "CONTENT-WARNING: Unable to get argument from condition %s.  Please check the structure of the meme." %memeType
-        memeStructure = script.getAssemblyNetworkOverview(conditionContainer, 1, False)
+        memeStructure = script.getClusterMembers(conditionContainer, 1, False)
         msSatement= "Structure of problem meme = %s" %memeStructure
         script.writeError(statement)
         script.writeError(msSatement)
@@ -948,7 +948,7 @@ def getOperatorFromConditionEntity(conditionContainer):
     if operator is None:
         memeType = script.getEntityMemeType(conditionContainer)
         statement = "CONTENT-WARNING: Unable to get operator from condition %s.  Please check the structure of the meme." %memeType
-        memeStructure = script.getAssemblyNetworkOverview(conditionContainer, 1, False)
+        memeStructure = script.getClusterMembers(conditionContainer, 1, False)
         msSatement= "Structure of problem meme = %s" %memeStructure
         script.writeError(statement)
         script.writeError(msSatement)
@@ -979,7 +979,7 @@ def getTestValuesFromConditionEntity(conditionContainer):
     if len(values) == 0:
         memeType = script.getEntityMemeType(conditionContainer)
         statement = "CONTENT-WARNING: Unable to get test values from condition %s.  Please check the structure of the meme." %memeType
-        memeStructure = script.getAssemblyNetworkOverview(conditionContainer, 1, False)
+        memeStructure = script.getClusterMembers(conditionContainer, 1, False)
         msSatement= "Structure of problem meme = %s" %memeStructure
         script.writeError(statement)
         script.writeError(msSatement)

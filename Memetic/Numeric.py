@@ -268,7 +268,7 @@ class InitValueNumeric(object):
                 script.writeLog(logStatement)
         except Exception as e:
             #debugger aid
-            functionContainerUUIDSet = script.getCounterpartOverview(valueNumericEntityUUID)
+            functionContainerUUIDSet = script.getEntityCounterparts(valueNumericEntityUUID)
             unusedDebug = e
 
 
@@ -450,7 +450,7 @@ def getArgumentTypeFromrandomEntity(conditionContainer):
     if argument is None:
         memeType = script.getEntityMemeType(conditionContainer)
         statement = "CONTENT-WARNING: Unable to get argument from condition %s.  Please check the structure of the meme." %memeType
-        memeStructure = script.getAssemblyNetworkOverview(conditionContainer, 1, False)
+        memeStructure = script.getClusterMembers(conditionContainer, 1, False)
         msSatement= "Structure of problem meme = %s" %memeStructure
         script.writeError(statement)
         script.writeError(msSatement)
