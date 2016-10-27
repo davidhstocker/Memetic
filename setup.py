@@ -13,7 +13,7 @@ setup(
   author = 'David Stocker',
   author_email = 'mrdave991@gmail.com',
   url = 'https://github.com/davidhstocker/Memetic', 
-  download_url = 'https://github.com/davidhstocker/Memetic/tarball/1.0', 
+  download_url = 'https://github.com/davidhstocker/Memetic/tarball/1.0.2', 
   keywords = ['graph', 'propertygraph', 'property graph', 'graphdatabase', 'graph database', 'schema'],
   classifiers = [],
 )
