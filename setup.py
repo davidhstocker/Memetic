@@ -8,7 +8,7 @@ from distutils.core import setup
 setup(
   name = 'memetic',
   packages = ['memetic'], 
-  version = '1.0',
+  version = '1.0.1',
   description = 'An open source property graph schema and graph traverse language.',
   author = 'David Stocker',
   author_email = 'mrdave991@gmail.com',
