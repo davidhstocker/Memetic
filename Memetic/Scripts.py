@@ -31,26 +31,19 @@ __author__ = 'David Stocker'
 # ***** END GPL LICENCE BLOCK *****
 # --------------------------------------------------------------------------
 
+import Graphyne.Scripting
 
 
-class ConditionTrue(object):
+class ConditionTrue(Graphyne.Scripting.StateEventScript):
 
-    def __init__(self, dtParams = None, rtParams = None):
-        self.dtParams = dtParams
-        self.rtParams = rtParams   
-        
-    def execute(self, params):
+    def execute(self, entityID, params):
         #always return True
         return True
     
     
     
-class ConditionFalse(object):
-
-    def __init__(self, dtParams = None, rtParams = None):
-        self.dtParams = dtParams
-        self.rtParams = rtParams   
+class ConditionFalse(Graphyne.Scripting.StateEventScript):  
         
-    def execute(self, params):
+    def execute(self, entityID, params):
         #always return False
         return False

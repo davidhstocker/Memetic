@@ -101,15 +101,11 @@ class ValueArgument(object):
     
     
         
-class ValueNumeric(threading.Thread):
+class ValueNumeric(Scripting.StateEventScript):
     className = "ValueNumeric"
-    entityLock = threading.RLock()
-    
-    def __init__(self, uuid):
-        self.uuid = uuid
 
-    def execute(self, params):
-        entityValue = script.getEntityPropertyValue(self.uuid, "Value")
+    def execute(self, entityUUID, unusedParams):
+        entityValue = script.getEntityPropertyValue(entityUUID, "Value")
         return [entityValue]
     
     
@@ -143,7 +139,7 @@ class RandomLinear(threading.Thread):
     
 
 class RandomLinearFlex(threading.Thread, AgentAttributeArgument):
-    className = "ConditionStringAAA"
+    className = "RandomLinearFlex"
     entityLock = threading.RLock()
 
     def __init__(self, functionContainerUUID, path, operator, subjectArgumentPath, valueList = None ):
@@ -228,13 +224,9 @@ class RandomLogNormal(threading.Thread):
 
 
 #Numeric Classes
-class InitValueNumeric(object):
-
-    def __init__(self, dtParams = None, rtParams = None):
-        self.dtParams = dtParams
-        self.rtParams = rtParams   
+class InitValueNumeric(Scripting.StateEventScript):
         
-    def execute(self, valueNumericEntityUUID):
+    def execute(self, valueNumericEntityUUID, unusedParams):
 
         """
         An instantiation by proxy class.  See the documentation of InitRandom of Memetic.Condition.InitCondition for an
@@ -254,6 +246,7 @@ class InitValueNumeric(object):
         
         try:
             functionContainerUUID = None
+            propertyValue = script.getEntityPropertyValue(valueNumericEntityUUID, "Value")
             functionContainerUUIDSet = script.getLinkCounterpartsByMetaMemeType(valueNumericEntityUUID, "Memetic.Numeric.Formula", 1)
             for functionContainerUUIDSetEntry in functionContainerUUIDSet:
                 functionContainerUUID = functionContainerUUIDSetEntry
@@ -261,8 +254,9 @@ class InitValueNumeric(object):
                 warningMsg = "VlaueNumeric Meme %s has no parent Memetic.Numeric.Formula." %valueNumericEntity.memePath.fullTemplatePath
                 script.writeError(warningMsg)
             else:
-                newValueNumeric = ValueNumeric(valueNumericEntityUUID)
+                newValueNumeric = ValueNumeric()
                 script.installPythonExecutor(functionContainerUUID, newValueNumeric)
+                script.setEntityPropertyValue(functionContainerUUID, "Value", propertyValue)
                 uuidAsStr = str(functionContainerUUID)
                 logStatement = "Added executor object to %s Function %s" %(path, uuidAsStr)
                 script.writeLog(logStatement)

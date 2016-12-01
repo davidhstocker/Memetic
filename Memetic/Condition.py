@@ -210,13 +210,9 @@ class MultiAgentAttributeArgument(object):
 
 
 #Conditional Classes
-class InitCondition(object):
+class InitCondition(Scripting.StateEventScript):
 
-    def __init__(self, dtParams = None, rtParams = None):
-        self.dtParams = dtParams
-        self.rtParams = rtParams   
-        
-    def execute(self, conditionEntityUUID):
+    def execute(self, conditionEntityUUID, unusedParams):
 
         """
         strmap = {'TagName':'ConditionString', 'ValueType':['ValueString'], 'OperatorType':'StringOperator'}
@@ -341,7 +337,7 @@ class ConditionSet(threading.Thread):
         return localResult
         
        
-    def execute(self, params):
+    def execute(self, entityID, argumentMap):
         ''' 2 params: arg1, passedValue = None '''
         # This is a clumsy way of doing automatic datatype detection on the passed arguent arg1
         # All of the test methods use only two arguments, agent/argumentMap and passedValue
@@ -349,29 +345,17 @@ class ConditionSet(threading.Thread):
         # strictly know the type of a child condition.
         # if arg1 is a dict, then we regard it as an argument map
         #    otherwise, we assume that it is an agent.
-        argumentMap = None
         try:
-            if type({}) == type(params[1]): 
-                argumentMap = params[1]
-            else:
-                errorMsg = 'Condition %s not called with required parameter format [uuid, {}]!  Parameters were %s' % (self.meme, params)
-                raise Exceptions.MissingArgumentError(errorMsg)
-        except Exceptions.MissingArgumentError as e:
-            raise e
-        except Exception as e:
-            raise e
-        
-        try:
-            resultSet = script.map(self.mapFunction, self.childConditions, argumentMap)
+            resultSet = script.map(self.mapFunction, self.childConditions, argumentMap['runtimeVariables'])
             
             #Debug
-            childConditionMemeList = {}
-            for childCondition in self.childConditions:
-                childConditionMeme = script.getEntityMemeType(childCondition)
-                localResult = script.evaluateEntity(childCondition, argumentMap)
-                childConditionMemeList[childConditionMeme] = localResult
-            script.writeDebug("argumentMap = %s" %argumentMap)
-            script.writeDebug("childConditionMemeList = %s" %childConditionMemeList)
+            #childConditionMemeList = {}
+            #for childCondition in self.childConditions:
+            #    childConditionMeme = script.getEntityMemeType(childCondition)
+            #    localResult = script.evaluateEntity(childCondition, argumentMap)
+            #    childConditionMemeList[childConditionMeme] = localResult
+            #script.writeDebug("argumentMap = %s" %argumentMap)
+            #script.writeDebug("childConditionMemeList = %s" %childConditionMemeList)
             #/debug
             
             returnValue = False
@@ -481,22 +465,17 @@ class ConditionStringSimple(ConditionString, SimpleArgument):
         self.initializeCondition(conditionContainerUUID, path, operator, valueList)
         self.initArgument(argument)
         
-    def execute(self, params):
+    def execute(self, entityID, argumentMap):
         ''' 2 params: arg1, passedValue = None '''
         
         returnValue = False
-        argumentMap = None
+        
         try:
             #See the ConditionSet.test method for a full explanation of this trickery. 
-            if type({}) == type(params[1]): 
-                argumentMap = params[1]
-            else:
-                errorMsg = 'Condition %s not called with required parameter format [uuid, {}]!  Parameters were %s' % (self.meme, params)
-                raise Exceptions.MissingArgumentError(errorMsg)
             try:
-                passedValue = argumentMap[self.argumentTag]
+                passedValue = argumentMap['runtimeVariables'][self.argumentTag]
             except:
-                errorMsg = 'Condition %s not called with required argument tag %s among parameters %s!  Evaluation Failed!' % (self.meme, self.argumentTag, params[1])
+                errorMsg = 'Condition %s not called with required argument tag %s among parameters %s!  Evaluation Failed!' % (self.meme, self.argumentTag, argumentMap)
                 raise Exceptions.MissingArgumentError(errorMsg)         
                    
             returnValue = self.innerTest(self.valueList, passedValue)
@@ -523,22 +502,14 @@ class ConditionStringAAA(ConditionString, AgentAttributeArgument):
             unused_catch = e
         
         
-    def execute(self, params):
+    def execute(self, entityID, argumentMap):
         ''' 2 param2: entityID, argumentMap'''
         returnValue = False
-        argumentMap = None
-        argumentValue = None
         try:
             #See the ConditionSet.test method for a full explanation of this trickery. 
-            if type({}) == type(params[1]): 
-                argumentMap = params[1]
-            else:
-                errorMsg = 'Condition %s not called with required parameter format [uuid, {}]!  Parameters were %s' % (self.meme, params)
-                raise Exceptions.MissingArgumentError(errorMsg)
-           
             try:
                 argumentValue = self.getArgumentValue(argumentMap['subjectID'])
-            except:
+            except Exception as e:
                 errorMsg = "Condition %s not called with required subject ID!  Condition has no entity for comparison and can't proceed!" % (self.meme)
                 raise Exceptions.MissingArgumentError(errorMsg) 
             
@@ -558,17 +529,11 @@ class ConditionStringMultiA(ConditionString, MultiAgentAttributeArgument):
         self.initArgument(argumentPaths)
 
         
-    def execute(self, params):
+    def execute(self, entityID, argumentMap):
         ''' 2 param2: entityID, argumentMap'''
         returnValue = False
-        argumentMap = None
+        
         try:
-            if type({}) == type(params[1]): 
-                argumentMap = params[1]
-            else:
-                errorMsg = 'Condition %s not called with required parameter format [uuid, {}]!  Parameters were %s' % (self.meme, params)
-                raise Exceptions.MissingArgumentError(errorMsg)
-            
             try:
                 argumentValues = self.getArgumentValues(argumentMap['subjectID'], argumentMap['objectID'])
             except Exception as e:
@@ -657,24 +622,17 @@ class ConditionNumericSimple(ConditionNumeric, SimpleArgument):
         return returnVals
 
         
-    def execute(self, params):
+    def execute(self, entityID, argumentMap):
         ''' 2 params: arg1, passedValue = None '''
 
         returnValue = False
-        argumentMap = None
         passedValue = None
         try:
             #See the ConditionSet.test method for a full explanation of this trickery. 
-            if type({}) == type(params[1]): 
-                argumentMap = params[1]
-            else:
-                errorMsg = 'Condition %s not called with required parameter format [uuid, {}]!  Parameters were %s' % (self.meme, params)
-                raise Exceptions.MissingArgumentError(errorMsg)
-            
             try:
-                passedValue = argumentMap[self.argumentTag]
+                passedValue = argumentMap['runtimeVariables'][self.argumentTag]
             except:
-                errorMsgPart1 = 'Condition %s not called with required argument tag %s among parameters %s!  Evaluation Failed!' % (self.meme, self.argumentTag, params[1])
+                errorMsgPart1 = 'Condition %s not called with required argument tag %s among parameters %s!  Evaluation Failed!' % (self.meme, self.argumentTag, argumentMap)
                 errorMsg = 'Condition %s has error. %s.  defaulting to False' % (errorMsgPart1, self.meme)
                 script.writeError(errorMsg) 
                 raise Exceptions.MissingArgumentError(errorMsg)    
@@ -700,19 +658,13 @@ class ConditionNumericAAA(ConditionNumeric, AgentAttributeArgument):
         self.initArgument(argument)
 
         
-    def execute(self, params):
+    def execute(self, entityID, argumentMap):
         ''' 2 param2: entityID, argumentMap'''
         returnValue = False
-        argumentMap = None
+        
         argumentValue = None
         try:
-            #See the ConditionSet.test method for a full explanation of this trickery. 
-            if type({}) == type(params[1]): 
-                argumentMap = params[1]
-            else:
-                errorMsg = 'Condition %s not called with required parameter format [uuid, {}]!  Parameters were %s' % (self.meme, params)
-                raise Exceptions.MissingArgumentError(errorMsg)
-            
+            #See the ConditionSet.test method for a full explanation of this trickery.             
             try:
                 argumentValue = self.getArgumentValue(argumentMap['subjectID'])
             except Exception as e:
@@ -723,7 +675,7 @@ class ConditionNumericAAA(ConditionNumeric, AgentAttributeArgument):
             
             returnValue = self.innerTest(self.valueList, argumentValue)
         except Exception as e:
-            errMsg = 'Condition %s defaulting to False.  MismatchedArgumentPathError while processing%s:, params = %s  Traceback = %s' % (self.meme, params, e)
+            errMsg = 'Condition %s defaulting to False.  MismatchedArgumentPathError while processing%s:, params = %s  Traceback = %s' % (self.meme, argumentMap, e)
             script.writeError(errMsg)
         return returnValue         
 
@@ -737,18 +689,12 @@ class ConditionNumericMultiA(ConditionNumeric, MultiAgentAttributeArgument):
         self.initArgument(argumentPaths)
 
         
-    def execute(self, params):
+    def execute(self, entityID, argumentMap):
         ''' 2 param2: entityID, argumentMap'''
         returnValue = False
-        argumentMap = None
+        
         argumentValues = None
         try:
-            if type({}) == type(params[1]): 
-                argumentMap = params[1]
-            else:
-                errorMsg = 'Condition %s not called with required parameter format [uuid, {}]!  Parameters were %s' % (self.meme, params)
-                raise Exceptions.MissingArgumentError(errorMsg)
-            
             try:
                 argumentValues = self.getArgumentValues(argumentMap['subjectID'], argumentMap['objectID'])
             except Exception as e:
@@ -776,9 +722,9 @@ class ConditionScript(object):
         self.entityLock = threading.RLock()
 
     
-    def execute(self, params):
+    def execute(self, entityID, argumentMap):
         try:
-            returnValue = self.script.execute(params)
+            returnValue = self.script.execute(entityID, argumentMap)
         except Exception as e:
             errorMsg = "Encountered error when executing script attached to script condition %s.  Traceback = %s" %(self.meme, e)
             script.writeError(errorMsg)
