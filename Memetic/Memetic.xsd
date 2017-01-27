@@ -1,0 +1,3897 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://github.com/davidhstocker/Memetic" xmlns="https://github.com/davidhstocker/Memetic"> 
+	
+	<xs:annotation>
+		<xs:documentation>
+			This is the root schema of Memetic. 
+		</xs:documentation>
+	</xs:annotation>
+
+	
+	<xs:element name="RMLModule">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					RML Template Set
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence>
+				<xs:element ref="Metadata" minOccurs="1" maxOccurs="1"/>
+				<!-- Depricated Elements 
+				<xs:element ref="ListOfChannelDeclaration" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="ListOfControllerDeclaration" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="ListOfCondition" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="ListOfDecoratorMetaModel" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="ListOfEntityMetaModel" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="ListOfEntity" minOccurs="0" maxOccurs="1" />      
+				<xs:element ref="ListOfStimulus" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="ListOfStimulusDescriptor" minOccurs="0" maxOccurs="1" /> -->
+				<xs:element ref="ListOfPropertyRestriction" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="ListOfMetaMeme" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="ListOfMeme" minOccurs="0" maxOccurs="1" />  
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<!--Metadata -->
+	
+  <xs:element name="Metadata">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        Attribution and copyright information. 
+        </xs:documentation>
+      </xs:annotation>     
+      <xs:sequence>
+        <xs:element ref="Revision" minOccurs="1" maxOccurs="1"/>    
+        <xs:element ref="Contributor" minOccurs="0" maxOccurs="unbounded" />               
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+	
+  <xs:element name="CreationDate" type="xs:date">
+    <xs:annotation>
+      <xs:documentation>
+      CreationDate
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="ParentUUID" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      ParentUUID
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="ParentURL" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      ParentURL
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="Revision">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        Revision information. 
+        </xs:documentation>
+      </xs:annotation>     
+      <xs:all>
+        <xs:element ref="CreationDate" minOccurs="1" maxOccurs="1"/>    
+        <xs:element ref="ParentUUID" minOccurs="1" maxOccurs="1" />               
+        <xs:element ref="ParentURL" minOccurs="1" maxOccurs="1" />               
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Package" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      A subdirectory of the RML repository directory containing a group of related files (modules). 
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="Dependencies">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        Packages on which this package is dependent. 
+        </xs:documentation>
+      </xs:annotation>     
+      <xs:sequence>
+        <xs:element ref="Package" minOccurs="0" maxOccurs="unbounded"/>    
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Author" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      Author
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="AuthorContact" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      AuthorContact
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="AuthorURL" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      AuthorURL
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="Comments" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      Comments
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="Copyright" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      Copyright
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="License" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      License
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="SourceData" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      SourceData
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="Contributor">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        Contributor information. 
+        </xs:documentation>
+      </xs:annotation>     
+      <xs:all>
+        <xs:element ref="Author" minOccurs="1" maxOccurs="1"/>    
+        <xs:element ref="AuthorContact" minOccurs="0" maxOccurs="1" />               
+        <xs:element ref="AuthorURL" minOccurs="0" maxOccurs="1" />               
+        <xs:element ref="Comments" minOccurs="0" maxOccurs="1" />               
+        <xs:element ref="Copyright" minOccurs="1" maxOccurs="1" />               
+        <xs:element ref="License" minOccurs="1" maxOccurs="1" />               
+        <xs:element ref="SourceData" minOccurs="0" maxOccurs="1" />               
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+
+<!-- Elements common to all templates -->
+	
+  <xs:element name="UUID" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+        A 128-bit ITU-T Rec. X.667 | ISO/IEC 9834-8 UUID (Univerally Unique Identifier), or a technically compatible one such as RFC4122. 
+        </xs:documentation>
+      </xs:annotation>
+  </xs:element>
+	
+  <xs:element name="Documentation" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      The original developer documentation of the descriptor.
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+	
+	<xs:simpleType name="coefficient">  
+	  <xs:annotation>
+		<xs:documentation>
+		A data type using the float base type with a range of values from 0 to 1.  Multiply by 100 to express the value as a 
+		percentage. 
+		</xs:documentation>
+	  </xs:annotation>       
+	  <xs:restriction base="xs:float">  
+		<xs:minInclusive value="0"/>  
+		<xs:maxInclusive value="1"/>  
+	  </xs:restriction>  
+	</xs:simpleType> 
+	
+  <xs:element name="ParameterListInt" type="xs:int">
+    <xs:annotation>
+      <xs:documentation>
+      A list of int parameters indexed to the offset of the object that they belong to. The object will be initiated with 
+      these parameters.
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="ParameterListFloat" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      A list of float parameters indexed to the offset of the object that they belong to. The object will be initiated with 
+      these parameters.
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="ParameterListString" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      A list of string parameters indexed to the offset of the object that they belong to. The object will be initiated with 
+      these parameters.
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="ObjectParameters">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        Parameters to use when the object is initiated. 
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:all>
+          <xs:element ref="ParameterListInt" minOccurs="0" maxOccurs="1"/>              
+          <xs:element ref="ParameterListFloat" minOccurs="0" maxOccurs="1"/>                   
+          <xs:element ref="ParameterListString" minOccurs="0" maxOccurs="1"/>               
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserDefinedData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ObjectParameters" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+	
+	
+  <xs:element name="Condition" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      A object path pointing to the Condition that must be fulfilled in order for the stimulus to be forwarded.
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>	
+	
+
+<!--  Agent/Entity/Decorator meta models -->
+	
+	<xs:simpleType name="propertyType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="boolean"/>
+			<xs:enumeration value="decimal"/>
+			<xs:enumeration value="integer"/>
+			<xs:enumeration value="string"/>
+			<xs:enumeration value="list"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+		
+	<xs:element name="PropertyMetaModel">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>
+			<xs:simpleContent>
+				<xs:extension base="propertyType">
+					<xs:attribute name="name" type="xs:string" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	
+	<xs:element name="MemberDecorator">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="metamodelID" type="xs:string" use="required"/>
+					<xs:attribute name="minoccours" type="xs:string" use="optional"/>
+					<xs:attribute name="maxoccours" type="xs:string" use="optional"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+			
+	
+	<xs:element name="DecoratorMetaModel">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence>
+				<xs:element ref="MemberDecorator" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="PropertyMetaModel" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="ListOfDecoratorMetaModel">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence>
+				<xs:element ref="DecoratorMetaModel" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+
+	
+	<xs:element name="MetaModelMemberEntity">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence/>
+			<xs:attribute name="metamodelID" type="xs:string" use="required"/>
+			<xs:attribute name="minoccours" type="xs:string" use="required"/>
+			<xs:attribute name="maxoccours" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="EntityMetaModelExtension">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence>
+				<xs:element ref="MetaModelMemberEntity" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="MemberDecorator" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="extends" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	
+	
+
+		<xs:element name="EntityMetaModel">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence>
+				<xs:element ref="MetaModelMemberEntity" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="MemberDecorator" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>	
+	
+	
+	<xs:element name="ListOfEntityMetaModel">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence>
+				<xs:element ref="EntityMetaModel" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="EntityMetaModelExtension" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	
+<!-- Entity Model -->
+	
+	<xs:element name="Property">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="name" type="xs:string" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	
+	<xs:element name="Decorator">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence>
+				<xs:element ref="MemberDecorator" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Property" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="metamodelID" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="MemberEntity">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="metamodelID" type="xs:string" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="Entity">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence>
+				<xs:element ref="MemberEntity" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Decorator" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="BubbleUpParadigm" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="metamodelID" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="ListOfEntity">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence>
+				<xs:element ref="Entity" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+
+	
+<!-- Bubble Up -->
+	
+	<xs:element name="MergeScript" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				ToDo...
+			</xs:documentation>
+		</xs:annotation> 
+	</xs:element>
+	
+	
+	<xs:element name="BubbleUpRule">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence>
+				<xs:element ref="Condition" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="MergeScript" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+			<xs:attribute name="property" type="xs:string" use="required"/>
+			<xs:attribute name="restriction" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="PERMISSIVE"/>
+						<xs:enumeration value="RESTRICTIVE"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="BubbleUpParadigm">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					ToDo...
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence>
+				<xs:element ref="BubbleUpRule" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="inheritance" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="TIERED"/>
+						<xs:enumeration value="FLAT"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="restriction" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="PERMISSIVE"/>
+						<xs:enumeration value="RESTRICTIVE"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	
+<!--Agents -->
+	
+
+  <xs:element name="Tag" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      Tag
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="Volume" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Volume
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="Mass" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Mass
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="Hollow" type="xs:boolean" default="false">
+    <xs:annotation>
+      <xs:documentation>
+      Hollow
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+
+  <xs:element name="Temperature" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Temperature
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="MomentOfInertia" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Moment Of Inertia
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="X" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      X coordinate
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="Y" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Y coordinate
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="Z" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Z coordinate
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="CenterOfMass">
+    <xs:annotation>
+      <xs:documentation>
+      CenterOfMass
+      </xs:documentation>
+    </xs:annotation> 
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="X" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Y" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Z" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ElectricalCharge" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      ElectricalCharge
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="MaterialReferenceUUID" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+        A UUID pointing to a material which is part of the CompositeMaterial. 
+        </xs:documentation>
+      </xs:annotation>
+  </xs:element>
+
+  <xs:element name="InstanceID" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+        A UUID pointing to a specific instance. 
+        </xs:documentation>
+      </xs:annotation>
+  </xs:element>
+
+  <xs:element name="IsHomogenous" type="xs:boolean" default="false">
+    <xs:annotation>
+      <xs:documentation>
+      Whether the CompositeMaterial is homogenous. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Materials">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="ComponentMaterial" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+	
+  <xs:element name="ComponentMaterial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="CompositeMaterial" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="PhysicalProperties">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Volume" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Mass" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Hollow" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Density" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Viscosity" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Pressure" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Temperature" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="MomentOfInertia" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="CenterOfMass" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="ElectricalCharge" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="ElectricalConductivity" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Magnetism" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Materials" minOccurs="0" maxOccurs="1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+	
+
+  <xs:element name="ExtendedPhysicalProperties">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Volume" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Mass" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Hollow" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Density" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Viscosity" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Pressure" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Temperature" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="MomentOfInertia" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="CenterOfMass" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="ElectricalCharge" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="ElectricalConductivity" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Magnetism" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Materials" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Sharpness" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="SweetSpot" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="LeakFactorGreater" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="LeakFactorLesser" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Age" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Health" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="UltraPhysicalProperties" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+		
+
+  <xs:element name="Sharpness" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Sharpness
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="SweetSpot">
+    <xs:annotation>
+      <xs:documentation>
+      SweetSpot
+      </xs:documentation>
+    </xs:annotation> 
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="X" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Y" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Z" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="LeakFactorGreater" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      LeakFactorGreater
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="LeakFactorLesser" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      LeakFactorLesser
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="Age" type="xs:unsignedShort">
+      <xs:annotation>
+        <xs:documentation>
+        Age
+        </xs:documentation>
+      </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Health" type="xs:unsignedShort">
+      <xs:annotation>
+        <xs:documentation>
+        Health
+        </xs:documentation>
+      </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Charge" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Charge
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="UltraPhysicalProperties">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Medium" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Charge" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Temperature" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Conductivity" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="PlatformSpecificAlias">
+	  <xs:complexType>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="engine" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>
+							The specific platform of the alias
+						</xs:documentation>
+					</xs:annotation> 
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>		  
+	  </xs:complexType>
+  </xs:element>
+
+  <xs:element name="NodeType">
+    <xs:simpleType>
+    <xs:annotation>
+      <xs:documentation>
+      Possible values for the operator if the Condition is a string. 
+      </xs:documentation>
+    </xs:annotation>  
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="dummyNode" />
+        <xs:enumeration value="bone" />
+        <xs:enumeration value="joint" />
+      </xs:restriction>
+    </xs:simpleType> 
+  </xs:element>
+
+  <xs:element name="AgentLandmark">
+    <xs:complexType>
+      <xs:sequence>
+		  <xs:element ref="Description" minOccurs="1" maxOccurs="1" />
+		  <xs:element ref="PlatformSpecificAlias" minOccurs="0" maxOccurs="unbounded" />
+		  <xs:element ref="NodeType" minOccurs="1" maxOccurs="1" />
+		  <xs:element ref="Taxonomy" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="Closeable" type="xs:unsignedShort">
+    <xs:annotation>
+      <xs:documentation>
+      Closeable
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="VolumeLimit" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      VolumeLimit
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="MassLimit" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      MassLimit
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="SieveSize" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      SieveSize
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="Endocontainer">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="Closeable" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="VolumeLimit" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="MassLimit" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="SieveSize" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Container">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="Endocontainer" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ListOfActionControlUUIDs" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+        ListOfActionControlUUIDs 
+        </xs:documentation>
+      </xs:annotation>
+  </xs:element>
+
+	
+	<xs:element name="TaxonomicalAttribute" type="xs:string">
+		<xs:annotation>
+		  <xs:documentation>
+			ToDo
+		  </xs:documentation>
+		</xs:annotation> 
+	</xs:element>
+	
+  <xs:element name="Taxonomy">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="TaxonomicalAttribute" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Zone" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      The zone in which the agent is located. 
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="Location">
+    <xs:annotation>
+      <xs:documentation>
+      Location
+      </xs:documentation>
+    </xs:annotation> 
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="X" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Y" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Z" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Translation">
+    <xs:annotation>
+      <xs:documentation>
+      Translation
+      </xs:documentation>
+    </xs:annotation> 
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="X" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Y" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Z" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Orientation">
+    <xs:annotation>
+      <xs:documentation>
+      Orientation
+      </xs:documentation>
+    </xs:annotation> 
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="X" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Y" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Z" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Rotation">
+    <xs:annotation>
+      <xs:documentation>
+      Rotation
+      </xs:documentation>
+    </xs:annotation> 
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="X" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Y" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Z" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="AgentLocation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Zone" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Location" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Translation" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Orientation" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Rotation" minOccurs="0" maxOccurs="1" />
+      </xs:sequence>
+	</xs:complexType>
+  </xs:element>
+
+  <xs:element name="Agent">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        This is a single type of agent.
+        </xs:documentation>
+      </xs:annotation>     
+      <xs:sequence>
+        <xs:element ref="UUID" minOccurs="1" maxOccurs="1" />    
+        <xs:element ref="Description" minOccurs="1" maxOccurs="1" />             
+        <xs:element ref="Tag" minOccurs="1" maxOccurs="1" />   
+        <xs:element ref="AgentLandmark" minOccurs="1" maxOccurs="1" /> 
+		<xs:choice>
+			<xs:element ref="PhysicalProperties" minOccurs="1" maxOccurs="1" />
+			<xs:element ref="ExtendedPhysicalProperties" minOccurs="1" maxOccurs="1" />			
+		</xs:choice>              
+        <xs:element ref="Container" minOccurs="0" maxOccurs="1" />    
+   
+        <xs:element ref="AgentLocation" minOccurs="0" maxOccurs="1" />    
+        <xs:element ref="StaticStimulusEmitters" minOccurs="0" maxOccurs="unbounded" />               
+      </xs:sequence>
+      <xs:attribute name="displayname" type="xs:string" use="required">     
+        <xs:annotation>
+          <xs:documentation>
+          A clear text name for the benefit of the user.  RML does not use this attribute as it uses the UUID as unique identifier and 
+	  this information is redundant (in addition to not ensuring uniqueness), but it is required for usability.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute> 
+    </xs:complexType>
+  </xs:element>
+	
+
+	<xs:element name="StemAgent" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				  The UUID of the agent closer to the "core" of the composite agent 
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="LeafAgent" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				  The UUID of the agent closer to the "periphery" of the composite agent 
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+  <xs:element name="MemberPair">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        MemberPair
+        </xs:documentation>
+      </xs:annotation>     
+      <xs:sequence>
+        <xs:element ref="StemAgent" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="LeafAgent" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+	
+  <xs:element name="AgentHierarchy">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="MemberPair" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+	
+  <xs:element name="StaticMemberList">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+			List of all static (designer defined and indivisible) agents that are template members
+        </xs:documentation>
+      </xs:annotation>     
+      <xs:sequence>
+        <xs:element ref="StemAgent" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+	
+  <xs:element name="StaticMember" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+        A UUID pointing to a static member of a composite agent. 
+        </xs:documentation>
+      </xs:annotation>
+  </xs:element>	
+	
+	<xs:element name="CompositeAgentTemplate">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+						Template used to define assemblies as individual objects.
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence>
+				<xs:element ref="UUID" minOccurs="1" maxOccurs="1" />
+				<xs:element ref="Description" minOccurs="1" maxOccurs="1" />
+				<xs:element ref="Tag" minOccurs="1" maxOccurs="1" /> 
+				<xs:element ref="StaticMemberList" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="AgentHierarchy" minOccurs="1" maxOccurs="1" />
+				<xs:choice>
+					<xs:element ref="PhysicalProperties" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="ExtendedPhysicalProperties" minOccurs="1" maxOccurs="1" />			
+				</xs:choice>              
+				<xs:element ref="Container" minOccurs="0" maxOccurs="1" />    
+				<xs:element ref="AgentLocation" minOccurs="0" maxOccurs="1" />    
+				<xs:element ref="StaticStimulusEmitters" minOccurs="0" maxOccurs="unbounded" />               
+			</xs:sequence>
+			<xs:attribute name="displayname" type="xs:string" use="required">     
+				<xs:annotation>
+					<xs:documentation>
+						A clear text name for the benefit of the user.  RML does not use this attribute as it uses the UUID as unique identifier and 
+						this information is redundant (in addition to not ensuring uniqueness), but it is required for usability.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute> 
+		</xs:complexType>
+	</xs:element>		
+	
+
+  <xs:element name="ListOfAgent">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        RMLVirtualAgent
+        </xs:documentation>
+      </xs:annotation>     
+      <xs:sequence>
+		<xs:element ref="CompositeAgentTemplate" minOccurs="1" maxOccurs="unbounded" />
+        <xs:element ref="Agent" minOccurs="1" maxOccurs="unbounded" />               
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+	
+<!-- Conditions, Bubble ups and Events -->
+	
+  <xs:element name="BubbleUp">
+    <xs:complexType>
+      <xs:simpleContent>
+	<xs:extension base="xs:string">
+          <xs:attribute name="condition" type="xs:string" use="required">
+	    <xs:annotation>
+	      <xs:documentation>
+			  A condition - event/taxonomy pair.  Biubble ups are used is assembling composite materials and 
+			  composite agents.  If the condition is true, then the event or taxonomy from the child member is
+			  added to the composite
+		  </xs:documentation>
+	    </xs:annotation> 
+	  </xs:attribute>
+	</xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>	
+
+
+	<xs:element name="ListOfEventBubbleUp">
+		<xs:annotation>
+			<xs:documentation>
+				A list of event bubble ups used by agents and materials.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BubbleUp" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+			<xs:attribute name="displayname" default="permissive">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="permissive"/>
+						<xs:enumeration value="restrictive"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+
+	<xs:element name="ListOfStimulusBubbleUp">
+		<xs:annotation>
+			<xs:documentation>
+				A list of event bubble ups used by agents and materials.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BubbleUp" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+			<xs:attribute name="displayname" default="permissive">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="permissive"/>
+						<xs:enumeration value="restrictive"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="ListOfTaxonomyBubbleUp">
+		<xs:annotation>
+			<xs:documentation>
+			    A list of taxonomical bubble ups.  The taxonomical bubble up is only used in the composite agent.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BubbleUp" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+			<xs:attribute name="displayname" default="permissive">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="permissive"/>
+						<xs:enumeration value="restrictive"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	
+  <xs:element name="ConditionPath" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      An object path pointing to a condition in the set.
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="ConditionSet">
+    <xs:complexType>
+      <xs:sequence>
+		<xs:element ref="Description" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="SetOperator" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="ConditionPath" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="templateName" type="xs:string" use="required">     
+        <xs:annotation>
+          <xs:documentation>
+			  The unique (within a module) name of the template.  See http://rulesetmodeling.wiki.sourceforge.net/templatePaths for full details.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute> 
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ScriptName" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      ScriptName
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="Argument">
+    <xs:complexType>
+      <xs:annotation>
+	<xs:documentation>
+	A condition argument, either a name for a name/value pair, or a reference to an agent's attributes.  
+	</xs:documentation>
+      </xs:annotation>
+	<xs:choice>
+	  <xs:element ref="SimpleArgument" />
+	  <xs:element ref="AgentAttributeArgument" />
+	</xs:choice>
+     </xs:complexType> 
+  </xs:element>
+	
+  <xs:element name="SimpleArgument" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      A single variable name for the argument variable
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>	
+
+  <xs:element name="AgentAttributeArgument" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      A single reference to the path of an attribute in an agent.  It is written in a simplified XPath style with the root node left out.  A reference to 
+      the agent's Tag would simply be "Tag".  A reference to the agent's volume would be "PhysicalProperties.Volume".
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>	
+	
+	
+  <xs:element name="ValueString" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      Value
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+	
+
+	  <xs:element name="ValueNumber" type="xs:decimal">
+    <xs:annotation>
+      <xs:documentation>
+      Value
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>		
+
+  <xs:element name="ListOfStringValues">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        A list of string values
+        </xs:documentation>
+      </xs:annotation>     
+      <xs:sequence>
+        <xs:element ref="ValueString" minOccurs="1" maxOccurs="unbounded"/>    
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+	
+  <xs:element name="ListOfNumericValues">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        A list of numeric values; either decimal or int.
+        </xs:documentation>
+      </xs:annotation>  
+		<xs:sequence>
+			<xs:element ref="ValueNumber" minOccurs="1" maxOccurs="unbounded"/> 
+		</xs:sequence>   
+    </xs:complexType>
+  </xs:element>	
+
+  <xs:element name="ConditionScript">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="Description" minOccurs="0" maxOccurs="1" />
+	<xs:element ref="ScriptName" minOccurs="1" maxOccurs="1" />
+	<xs:element ref="Argument" minOccurs="0" maxOccurs="1" />
+	<xs:element ref="ListOfStringValues" minOccurs="0" maxOccurs="1" />
+	<xs:element ref="ListOfNumericValues" minOccurs="0" maxOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="templateName" type="xs:string" use="required">     
+        <xs:annotation>
+          <xs:documentation>
+			  The unique (within a module) name of the template.  See http://rulesetmodeling.wiki.sourceforge.net/templatePaths for full details.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute> 
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="StringOperator">
+    <xs:simpleType>
+    <xs:annotation>
+      <xs:documentation>
+      Possible values for the operator if the Condition is a string. 
+      </xs:documentation>
+    </xs:annotation>  
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="Equal" />
+        <xs:enumeration value="NotEqual" />
+        <xs:enumeration value="Longer" />
+        <xs:enumeration value="Shorter" />
+        <xs:enumeration value="SameLength" />
+        <xs:enumeration value="NotSameLength" />
+        <xs:enumeration value="StartsWith" />
+        <xs:enumeration value="EndsWith" />
+      </xs:restriction>
+    </xs:simpleType>  
+  </xs:element>
+
+  <xs:element name="NumericOperator">
+    <xs:simpleType>
+    <xs:annotation>
+      <xs:documentation>
+      Possible values for the operator if the Condition is an int or float. 
+      </xs:documentation>
+    </xs:annotation>  
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="Equal" />
+        <xs:enumeration value="NotEqual" />
+        <xs:enumeration value="GreaterThan" />
+        <xs:enumeration value="LessThan" />
+        <xs:enumeration value="EqualOrGreaterThan" />
+        <xs:enumeration value="EqualOrLessThan" />
+      </xs:restriction>
+    </xs:simpleType>  
+  </xs:element>
+
+  <xs:element name="SetOperator">
+    <xs:simpleType>
+    <xs:annotation>
+      <xs:documentation>
+      A condition operator which is allowed. 
+      </xs:documentation>
+    </xs:annotation>  
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="AND" />
+        <xs:enumeration value="OR" />
+        <xs:enumeration value="NOT" />
+      </xs:restriction>
+    </xs:simpleType>  
+  </xs:element>
+	
+  <xs:element name="ConditionString">
+    <xs:complexType>
+      <xs:all>
+	<xs:element ref="Description" minOccurs="0" maxOccurs="1" />
+	<xs:element ref="StringOperator" /> 
+        <xs:element ref="Argument" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="ListOfStringValues" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+      <xs:attribute name="templateName" type="xs:string" use="required">     
+        <xs:annotation>
+          <xs:documentation>
+			  The unique (within a module) name of the template.  See http://rulesetmodeling.wiki.sourceforge.net/templatePaths for full details.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute> 
+    </xs:complexType>
+  </xs:element>
+	
+  <xs:element name="ConditionNumeric">
+    <xs:complexType>
+      <xs:all>
+	<xs:element ref="Description" minOccurs="0" maxOccurs="1" />
+	<xs:element ref="NumericOperator" />
+        <xs:element ref="Argument" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="ListOfNumericValues" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+      <xs:attribute name="templateName" type="xs:string" use="required">     
+        <xs:annotation>
+          <xs:documentation>
+			  The unique (within a module) name of the template.  See http://rulesetmodeling.wiki.sourceforge.net/templatePaths for full details.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute> 
+    </xs:complexType>
+  </xs:element>
+
+
+	
+  <xs:element name="ListOfCondition">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        ListOfCondition
+        </xs:documentation>
+      </xs:annotation>     
+      <xs:sequence>
+        <xs:element ref="ConditionSet" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element ref="ConditionScript" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element ref="ConditionString" minOccurs="0" maxOccurs="unbounded" />
+	<xs:element ref="ConditionNumeric" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+	
+	
+<!-- Action Model -->
+  <xs:element name="Recursive" type="xs:boolean" default="false">
+    <xs:annotation>
+      <xs:documentation>
+      Allows the designer to create a continuous action without the complexity of recursive action containers. The action 
+      will automatically invoke itself as its own successor.
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="DurationFixed" type="xs:long">
+    <xs:annotation>
+      <xs:documentation>
+      A fixed amount of time.
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element> 
+
+  <xs:element name="MinWait" type="xs:unsignedShort">
+    <xs:annotation>
+      <xs:documentation>
+      The minimum amount of time in DurationRandomLinear.
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element> 
+
+  <xs:element name="MaxWait" type="xs:unsignedShort">
+    <xs:annotation>
+      <xs:documentation>
+      The maximum amount of time in DurationRandomLinear.
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element> 
+
+  <xs:element name="DurationRandomLinear">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        This class is used to create and hold a random duration between minWait and maxWait.
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:all>
+        <xs:element ref="MinWait" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="MaxWait" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element> 
+
+  <xs:element name="MostProbable" type="xs:float" />
+
+  <xs:element name="RandomIntegerPMF">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="MostProbable" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+    </xs:complexType>  
+  </xs:element> 
+
+  <xs:element name="DurationRandomPMF">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        This variant creates and holds a random integer derived from the probability mass function with fixed lambda. Lambda 
+        is declared in the attribute RandomIntegerPMF.mostProbable, which is a constructor argument. GetDuration() returns 
+        the value of k that turns up.
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:all>
+        <xs:element ref="RandomIntegerPMF" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+    </xs:complexType>  
+  </xs:element> 
+
+  <xs:element name="Duration">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        Defines how long the execution of an action or a phase takes.
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:choice>
+        <xs:element ref="DurationFixed" />
+        <xs:element ref="DurationRandomLinear" />
+        <xs:element ref="DurationRandomPMF" />
+      </xs:choice>
+    </xs:complexType>  
+  </xs:element>
+
+  <xs:element name="ScriptURL" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      A reference to a script meant to fire on the server when an ActionPhase is executed. This single element is probably 
+      the workhorse of any designer; it can act as his custom event and is where he does what he wants.
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element> 
+
+  <xs:element name="StimulusSignal" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      A UUID which points to one or more stimuli that are triggered by an action.
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element> 
+
+  <xs:element name="ActionPhase">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        An action is made up of phases. 
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:sequence>
+        <xs:element ref="Duration" minOccurs="1" maxOccurs="1" />    
+        <xs:element ref="ScriptURL" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="StimulusSignal" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element ref="FreeNode" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element ref="ProtectedNode" minOccurs="0" maxOccurs="unbounded" />              
+        <xs:element ref="ExclusiveNode" minOccurs="0" maxOccurs="unbounded" />                      
+      </xs:sequence>
+    </xs:complexType>  
+  </xs:element>
+
+  <xs:element name="ActionPhaseList">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        The hardcoded phase list.  This is an optional attribute.  Actions that are simply containers for other actions 
+        don���t need a phase list.  Bear in mind that while this is possible in this specification for consistency reasons, it 
+        is severe abuse of action models.  If it is only a container, it is better to define it as an ActionContainer in the 
+        first place.
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:sequence>
+        <xs:element ref="ActionPhase" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>  
+  </xs:element>
+
+  <xs:element name="ActionContainer" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      A UUID which points to an ActionContainer which will be executed when the action ends. 
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element> 
+
+  <xs:element name="ExecutionNode" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      The node from which a given action executes (in which queue it resides).
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element> 
+
+  <xs:element name="FreeNode" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      A node that the action needs to use, but can share with other actions.
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="ProtectedNode" type="xs:string">              
+    <xs:annotation>
+      <xs:documentation>
+      A node that the action needs to use and generally blocks.  Any actions that are ���friends��� may also use this node.  If 
+      there is a conflict over node use due to protected status, the lower priority action is aborted or skipped. 
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="ExclusiveNode" type="xs:string">        
+    <xs:annotation>
+      <xs:documentation>
+      A node that the action needs to use and cannot share with any other action.  If there is a conflict over node use due 
+      to exclusive status, the lower priority action is aborted or skipped.
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="UsedNodeList">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        A list of the nodes used by an action. 
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:sequence>
+        <xs:element ref="FreeNode" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element ref="ProtectedNode" minOccurs="0" maxOccurs="unbounded" />              
+        <xs:element ref="ExclusiveNode" minOccurs="0" maxOccurs="unbounded" />        
+      </xs:sequence>
+    </xs:complexType>  
+  </xs:element> 
+
+  <xs:element name="ActionType">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        This is a single type of action, such as jumping or picking locks.       
+        </xs:documentation>
+      </xs:annotation>     
+      <xs:all>
+        <xs:element ref="Description" minOccurs="1" maxOccurs="1" />             
+        <xs:element ref="UUID" minOccurs="1" maxOccurs="1" />               
+        <xs:element ref="Metadata" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Recursive" minOccurs="0" maxOccurs="1" />    
+        <xs:element ref="Duration" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="ExecutionNode" minOccurs="1" maxOccurs="1" />               
+        <xs:element ref="UsedNodeList" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="ActionPhaseList" minOccurs="0" maxOccurs="1" />               
+        <xs:element ref="ActionContainer" minOccurs="0" maxOccurs="1" />               
+      </xs:all>
+      <xs:attribute name="displayname" type="xs:string" use="required">     
+        <xs:annotation>
+          <xs:documentation>
+          A clear text name for the benefit of the user.  RML does not use this attribute as it uses the UUID as unique identifier and 
+	  this information is redundant (in addition to not ensuring uniqueness), but it is required  for usability.  The user is free to edit the 
+          displayname at any time without any side effects.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute> 
+    </xs:complexType>
+  </xs:element>
+
+
+	<!-- Action Control-->
+	
+  <xs:element name="EventType">
+    <xs:simpleType>
+      <xs:annotation>
+        <xs:documentation>
+        Defines how the actions in the action control are inserted into the actor���s action queue. 
+        </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="EVENT_ACTION_OVERRIDE_SOFT" />
+            <!--Tells the actor to clear all the current actions within the action queue and insert the new one(s). The 
+            processing of the current action will be unmolested and will continue normally.-->
+        <xs:enumeration value="EVENT_ACTION_OVERRIDE_HARD" />
+            <!--Resets the current action queue just like the soft override, but also signals to the action thread to 
+            terminate the processing of the current action at the end of the next phase.-->
+        <xs:enumeration value="EVENT_ACTION_APPEND" />
+            <!--The least intrusive event type. It simply attaches the action queue payload of the event to the end of the 
+            actor's action queue. The actor will continue doing what it was doing and when it is finished, it will execute 
+            the new commands.-->
+        <xs:enumeration value="EVENT_ACTION_INSERT" />
+            <!--More intrusive than EVENT_ACTION_APPEND, but not earth shattering. It tells the actor to add the action(s) 
+            to the head of its current action queue. It does not remove anything from the action queue. Existing, unexecuted 
+            actions get delayed. This will also delay higher priority actions.-->
+        <xs:enumeration value="EVENT_ACTION_INSERT_FIRST_ONLY" />
+            <!--Used to ensure that the action is not inserted if it can't be inserted into the head. This control prevents 
+            the AI from assigning an action on the presumption that it gets done right away, when it actually gets put back 
+            30 seconds.  It should be used when the relevancy of that action is only transient, but it is not worth 
+            interrupting a higher priority action.-->
+        <xs:enumeration value="EVENT_ACTION_INSERT_FORCED_HEAD_HARD" />
+            <!--This is the most intrusive variant of the insert family. It is used if you want it to be the lead action 
+            (the next executed), no matter what. Reliability of this can't be guaranteed, as there may always be another 
+            forced head insert call while this action is waiting to execute. Hard forced head insert cancels the currently 
+            executing action and inserts the assigned action(s) to the head of the action queue. The existing, unexecuted, 
+            actions are not interrupted, only delayed.-->
+        <xs:enumeration value="EVENT_ACTION_INSERT_FORCED_HEAD_SOFT" />
+            <!--This is a variant of the forced head insert that does not cancel the currently executing action, but instead 
+            allows it to finish executing.  It is otherwise the same as EVENT_ACTION_INSERT_FORCED_HEAD_HARD.-->
+      </xs:restriction>
+    </xs:simpleType>  
+  </xs:element>
+
+  <xs:element name="Priority" type="xs:unsignedByte">
+    <xs:annotation>
+      <xs:documentation>
+      Determines the position of an action during head insertion and for stimuli insertion into the SIQ. The Priority is 
+	  compared with that of the next action currently scheduled. If it is higher, it is inserted in front. If it is lower, 
+	  the next action in the queue is checked, and so on, until an action is found with a lower Priority or the end of the 
+	  queue is reached. Not all actions have Priority, and any action with no Priority assigned is automatically lower than 
+	  one with a Priority parameter.  When an action is inserted, there should be a return signal indicating the position it 
+	  was inserted into in the action queue. Priority should only be used during head insertion of actions.
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="ActionUUID" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      A UUID which points to an action or ActionControl.  
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="ActionReference">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        A list of action reference objects.
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:all>
+          <xs:element ref="ActionUUID" minOccurs="1" maxOccurs="1"/>    
+          <xs:element ref="ParameterListInt" minOccurs="0" maxOccurs="1"/>              
+          <xs:element ref="ParameterListString" minOccurs="0" maxOccurs="1"/>               
+          <xs:element ref="ParameterListFloat" minOccurs="0" maxOccurs="1"/>                   
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        This is a control that is sent to the Action Engine to cause an action to be processed. 
+        </xs:documentation>
+      </xs:annotation>     
+      <xs:all>
+        <xs:element ref="Metadata" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="EventType" minOccurs="1" maxOccurs="1" />              
+        <xs:element ref="Priority" minOccurs="0" maxOccurs="1" />                        
+        <xs:element ref="Recursive" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="ExecutionNode" minOccurs="1" maxOccurs="1" />    
+        <xs:element ref="ActionReference" minOccurs="1" maxOccurs="1" />              
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+	
+
+  <xs:element name="WhitelistAction" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+		  An action that the controller will be allowed to executs
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>	
+		
+	<xs:element name="ListOfWhitelistActions">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="WhitelistAction" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>	
+	
+	
+<!-- Material Models -->
+  <xs:element name="Descriptor">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="Text" minOccurs="1" maxOccurs="1" />
+      </xs:all>
+      <xs:attribute name="Language" type="xs:language" use="required">
+        <xs:annotation>
+          <xs:documentation>
+          The ISO 639-1 language code of the language used.
+          </xs:documentation>
+        </xs:annotation>     
+      </xs:attribute>
+    </xs:complexType>   
+  </xs:element>
+
+  <xs:element name="NameInternationalized">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Descriptor" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="DevLanguage" type="xs:language" use="required">
+        <xs:annotation>
+          <xs:documentation>
+          The ISO 639-1 language code of the language used by the developer.
+          </xs:documentation>
+        </xs:annotation>   
+      </xs:attribute> 
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Density" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Note that density is related to temperature. 
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="Hardness" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Hardness is measured by the Vickers hardness test and expressed in pascals. 
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="SpecificHeat" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Specific Heat is the heat needed to increase the temperature of one gram of a substance by one degree Kelvin. 
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="ElasticModulus" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Modulus of Elasticity is a substance's tendency to be temporarily deformed when a force is applied, measured in 
+      pascals. 
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+	<xs:element name="NonPolarityCoefficient">
+		<xs:simpleType>
+			<xs:annotation>
+				<xs:documentation>
+					The Nonpolarity Coefficient, together with the Polarity Coefficient, defines the immiscibility of liquids.  It is 
+					measured on a scale of 0 to 1. 
+				</xs:documentation>
+			</xs:annotation> 
+			<xs:restriction base="xs:float">
+				<xs:minExclusive value="0.0"/>
+				<xs:maxExclusive value="1.0"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+	<xs:element name="PolarityCoefficient">
+		<xs:simpleType>
+			<xs:annotation>
+				<xs:documentation>
+					The Polarity Coefficient, together with the Nonpolarity Coefficient, defines the immiscibility of liquids.  It is 
+					measured on a scale of 0 to 1. 
+				</xs:documentation>
+			</xs:annotation> 
+			<xs:restriction base="xs:float">
+				<xs:minExclusive value="0.0"/>
+				<xs:maxExclusive value="1.0"/>
+			</xs:restriction>
+		</xs:simpleType>  
+	</xs:element>
+
+  <xs:element name="ThermalConductivity" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Thermal Conductivity is the ability to conduct heat, expressed in joules per second per meter per kelvin. 
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="ElectricalConductivity" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Electrical Conductivity is the ability to conduct electricity, expressed in siemens per meter. 
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="ElectricalPermittivity" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Electrical Permittivity is measured in farads per meter. 
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="Flammable" type="xs:boolean" default="true">
+    <xs:annotation>
+      <xs:documentation>
+      Whether the material is flammable. 
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="Flashpoint" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Flashpoint is the temperature at which a substance forms an ignitable mixture in air, expressed in degrees Kelvin. 
+      </xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+	<!--
+  <xs:element name="StandardTexture" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      A UUID which points to a StandardTexture. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="AlphaTransparency" type="coefficient">
+    <xs:annotation>
+      <xs:documentation>
+      The transparency and opacity of the material, measured on a scale of 0 to 1 (with 0 indicating complete transparency 
+      and 1 indicating complete opacity). 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Specular" type="coefficient">
+    <xs:annotation>
+      <xs:documentation>
+      Specular reflection is the amount of light reflected or absorbed, measured on a scale of 0 to 1.  If a ray of light 
+      strikes the material at a 45 degree angle, it leaves the surface at -45 degrees. There is no refraction or diffusion. 
+      The converse of specular reflection is diffuse reflection, in which light is scattered at random angles. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Hard" type="coefficient">
+    <xs:annotation>
+      <xs:documentation>
+      Width of the specular highlights, measured on a scale of 0 to 1.  A lower value indicates wider highlights.  A glossy 
+      material will have a large bright spot of reflected light, while a dull material will have a very small bright spot or 
+      none at all.  Thus, Hard affects how brilliant the material appears. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Reflectivity" type="coefficient">
+    <xs:annotation>
+      <xs:documentation>
+      Reflection of a source image (such as the sky).  Also known as Mirror, Fresnel, or Frensel.  Measured on a scale of 0 
+      to 1. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+	
+  <xs:element name="Emit" type="coefficient">
+    <xs:annotation>
+      <xs:documentation>
+      Amount of light the material emits of itself (assuming no external light source), on a scale of 0 to 1. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="BumpNormalMapping" type="coefficient">
+    <xs:annotation>
+      <xs:documentation>
+      Normal mapping is a bump mapping technique used to give an effect of depth and detail with fewer polygons.  Measured 
+      on a scale of 0 to 1. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Parallax" type="coefficient">
+    <xs:annotation>
+      <xs:documentation>
+      Apparent motion of an object caused by a change in the position of the observer.  Measured on a scale of 0 to 1. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="ProceduralTexturing" type="coefficient">
+    <xs:annotation>
+      <xs:documentation>
+      Procedural texturing is a method of stacking multiple textures to obtain a desired effect.  Measured on a scale of 0 
+      to 1. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Overlays" type="coefficient">
+    <xs:annotation>
+      <xs:documentation>
+      Overlaying one texture with another to add variance to landscapes or models (such as a custom user model).  Measured 
+      on a scale of 0 to 1. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="asset" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      Corresponds to the asset child of the Collada 1.4 library_effects and library_materials elements. 
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="effect" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      Corresponds to the effect child of the Collada 1.4 library_effects element. 
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="material" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      Corresponds to the material child of the Collada 1.4 library_materials element. 
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="extra" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      Corresponds to the extra child of the Collada 1.4 library_effects and library_materials elements. 
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+  <xs:element name="library_effects">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        Compatible with the Collada 1.4 library_effects element.  Provides shader information. 
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:sequence>
+          <xs:element ref="asset" minOccurs="0" maxOccurs="1"/>              
+          <xs:element ref="effect" minOccurs="1" maxOccurs="unbounded"/>                   
+          <xs:element ref="extra" minOccurs="0" maxOccurs="unbounded"/>  
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="library_materials">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        Compatible with the Collada 1.4 library_materials element.  Provides texture information. 
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:sequence>
+          <xs:element ref="asset" minOccurs="0" maxOccurs="1"/>              
+          <xs:element ref="material" minOccurs="1" maxOccurs="unbounded"/>                   
+          <xs:element ref="extra" minOccurs="0" maxOccurs="unbounded"/>  
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+		-->
+	
+  <xs:element name="SensoryType" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      This indicates the feedback mechanism for the client (acoustic, electromagnetic, etc.) and correlates with the 
+      sensory type. It will be a UUID using the Stimulus schema. The designer can���t make any assumptions about 
+      how the data is displayed or even processed on the client side.
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+ <!--  <xs:element name="Appearance">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        Information about how the material is perceived.
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:sequence>
+          <xs:element ref="library_effects" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="library_materials" minOccurs="1" maxOccurs="1"/>                   
+          <xs:element ref="SensoryType" minOccurs="1" maxOccurs="unbounded" />    
+      </xs:sequence>
+      <xs:attribute name="displayname" type="xs:string" use="required">     
+        <xs:annotation>
+          <xs:documentation>
+          A clear text name for the benefit of the user.  RML does not use this attribute as it uses the UUID as unique identifier and 
+	  this information is redundant (in addition to not ensuring uniqueness), but it is required for usability.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute> 
+    </xs:complexType>
+  </xs:element> -->
+
+
+
+  <xs:element name="TargetUUID" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      The UUID pointing to the material that can be absorbed. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+	<xs:element name="CoefficientofAbsorbancy">
+		<xs:simpleType>
+			<xs:annotation>
+				<xs:documentation>
+					The coefficient of absorbancy (on a scale of 0 to 1) with respect to the TargetUUID. 
+				</xs:documentation>
+			</xs:annotation>
+			<xs:restriction base="xs:float">
+				<xs:minExclusive value="0.0"/>
+				<xs:maxExclusive value="1.0"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+  <xs:element name="Absorbancy">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        Absorbancy is the ability to absorb liquids, in terms of relative mass. 
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:all>
+          <xs:element ref="TargetUUID" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="CoefficientofAbsorbancy" minOccurs="1" maxOccurs="1"/>              
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="MaterialPropertiesAbsorbancy">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        MaterialPropertiesAbsorbancy
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:sequence>
+          <xs:element ref="Absorbancy" minOccurs="0" maxOccurs="unbounded"/>              
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+	<xs:element name="TensileStrength">
+		<xs:simpleType>
+			<xs:annotation>
+				<xs:documentation>
+					A proxy for both elastic and proportional limit, measured on a scale of 0 to 1.  A material's tensile strength rates 
+					how much it can be stretched or squeezed without breaking. 
+				</xs:documentation>
+			</xs:annotation>
+			<xs:restriction base="xs:float">
+				<xs:minExclusive value="0.0"/>
+				<xs:maxExclusive value="1.0"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+  <xs:element name="Magnetism" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      The magnetism of a material, measured in Tesla. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="MagneticSusceptibility" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      MagneticSusceptibility is measured in siemens. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="MaterialPropertiesSolid">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        MaterialPropertiesSolid
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:all>
+          <xs:element ref="TensileStrength" minOccurs="0" maxOccurs="1"/>              
+          <xs:element ref="Magnetism" minOccurs="0" maxOccurs="1"/>              
+          <xs:element ref="MagneticSusceptibility" minOccurs="0" maxOccurs="1"/>              
+          <xs:element ref="Hardness" minOccurs="0" maxOccurs="1"/>              
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="MolecularWeight" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      The molecular weight of the material in grams per mole. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Viscosity" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Viscosity in pascal-seconds. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="SurfaceTension" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Surface tension in newtons per meter. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Dissipative" type="xs:boolean" default="false">
+    <xs:annotation>
+      <xs:documentation>
+      Whether the material dissipates. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="MaterialPropertiesFluid">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        MaterialPropertiesFluid
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:all>
+          <xs:element ref="MolecularWeight" minOccurs="0" maxOccurs="1"/>              
+          <xs:element ref="Viscosity" minOccurs="0" maxOccurs="1"/>              
+          <xs:element ref="SurfaceTension" minOccurs="0" maxOccurs="1"/>              
+          <xs:element ref="Dissipative" minOccurs="0" maxOccurs="1"/>              
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Medium" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      Medium
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Override" type="xs:boolean" default = "false">
+    <xs:annotation>
+      <xs:documentation>
+      Override
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+	<xs:element name="MassCoefficient">
+		<xs:simpleType>
+			<xs:annotation>
+				<xs:documentation>
+					MassCoefficient (measured on a scale of 0 to 1) 
+				</xs:documentation>
+			</xs:annotation>
+			<xs:restriction base="xs:float">
+				<xs:minExclusive value="0.0"/>
+				<xs:maxExclusive value="1.0"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+  <xs:element name="Conductivity" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Conductivity
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Permittivity" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Permittivity
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="HalfLife" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      HalfLife
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="DiphysicalLimit" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      DiphysicalLimit
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="SpecificEnergy" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      SpecificEnergy
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="TransitionTemperatureUp" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      TransitionTemperatureUp
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="TransitionTemperatureDown" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      TransitionTemperatureDown
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="EnthalpyCostUp" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      EnthalpyCostUp
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="EnthalpyCostDown" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      EnthalpyCostDown
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="PhaseChangeUpActionID" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      PhaseChangeUpActionID 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="PhaseChangeDownActionID" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      PhaseChangeDownActionID 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="MaterialPropertiesUltraphysical">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        The ultraphysical properties of the material. 
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:all>
+          <xs:element ref="Medium" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="Override" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="Dissipative" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="MassCoefficient" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="Conductivity" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="Permittivity" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="HalfLife" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="DiphysicalLimit" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="SpecificEnergy" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="TransitionTemperatureUp" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="TransitionTemperatureDown" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="EnthalpyCostUp" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="EnthalpyCostDown" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="PhaseChangeUpActionID" minOccurs="1" maxOccurs="1"/>              
+          <xs:element ref="PhaseChangeDownActionID" minOccurs="1" maxOccurs="1"/>              
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="StaticStimulusEmitters" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+        A UUID pointing to a stimulus. 
+        </xs:documentation>
+      </xs:annotation>
+  </xs:element>	
+	
+    <xs:complexType name="MaterialBase">
+      <xs:annotation>
+        <xs:documentation>
+        This is a single type of material, such as iron.       
+        </xs:documentation>
+      </xs:annotation>     
+      <xs:sequence>
+        <xs:element ref="UUID" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="Description" minOccurs="1" maxOccurs="1" />             
+        <xs:element ref="Density" minOccurs="0" maxOccurs="1" />    
+        <xs:element ref="SpecificHeat" minOccurs="0" maxOccurs="1" />               
+        <xs:element ref="ElasticModulus" minOccurs="0" maxOccurs="1" />               
+        <xs:element ref="NonPolarityCoefficient" minOccurs="0" maxOccurs="1" />               
+        <xs:element ref="PolarityCoefficient" minOccurs="0" maxOccurs="1" />               
+        <xs:element ref="ThermalConductivity" minOccurs="0" maxOccurs="1" />               
+        <xs:element ref="ElectricalConductivity" minOccurs="0" maxOccurs="1" />               
+        <xs:element ref="ElectricalPermittivity" minOccurs="0" maxOccurs="1" />               
+        <xs:element ref="Flammable" minOccurs="0" maxOccurs="1" />               
+        <xs:element ref="Flashpoint" minOccurs="0" maxOccurs="1" />               
+        <xs:element ref="MaterialPropertiesAbsorbancy" minOccurs="0" maxOccurs="1" />  
+        <xs:element ref="MaterialPropertiesUltraphysical" minOccurs="0" maxOccurs="unbounded" />
+		<xs:element ref="StaticStimulusEmitters" minOccurs="0" maxOccurs="unbounded" />              
+		<xs:element ref="UserDefinedData" minOccurs="0" maxOccurs="unbounded" />               
+      </xs:sequence>
+    </xs:complexType>
+	
+
+	<xs:element name="CoeficcientOfFrictionKinetic">
+		<xs:simpleType>
+			<xs:annotation>
+				<xs:documentation>
+					CoeficcientOfFrictionKinetic (measured on a scale of 0 to 1) 
+				</xs:documentation>
+			</xs:annotation>
+			<xs:restriction base="xs:float">
+				<xs:minExclusive value="0.0"/>
+				<xs:maxExclusive value="1.0"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	
+	<xs:element name="CoeficcientOfFrictionStatic">
+		<xs:simpleType>
+			<xs:annotation>
+				<xs:documentation>
+					CoeficcientOfFrictionStatic (measured on a scale of 0 to 1) 
+				</xs:documentation>
+			</xs:annotation>
+			<xs:restriction base="xs:float">
+				<xs:minExclusive value="0.0"/>
+				<xs:maxExclusive value="1.0"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+  <xs:element name="HeatOfMelting" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      The temperature at which the material melts, in degrees Kelvin. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="MeltingPhaseChangeActionID" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      The UUID pointing to the MeltingPhaseChangeAction.  
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+
+	  <xs:complexType name="MaterialSolid">
+    <xs:complexContent>
+		<xs:extension base="MaterialBase">
+		  <xs:annotation>
+			<xs:documentation>
+			MaterialSolid
+			</xs:documentation>
+		  </xs:annotation>  
+		  <xs:sequence>
+			  <xs:element ref="CoeficcientOfFrictionKinetic" minOccurs="0" maxOccurs="1"/>              
+			  <xs:element ref="CoeficcientOfFrictionStatic" minOccurs="0" maxOccurs="1"/>              
+			  <xs:element ref="HeatOfMelting" minOccurs="0" maxOccurs="1"/>              
+			  <xs:element ref="MeltingPhaseChangeActionID" minOccurs="0" maxOccurs="1"/> 
+			  <xs:choice>
+				  <xs:element ref="MaterialPropertiesSolid" minOccurs="0" maxOccurs="1" />
+				  <xs:element ref="MaterialPropertiesFluid" minOccurs="0" maxOccurs="1" />				  
+			  </xs:choice>
+		  </xs:sequence>
+		  <xs:attribute name="displayname" type="xs:string" use="required">     
+			<xs:annotation>
+			  <xs:documentation>
+			  A clear text name for the benefit of the user.  RML does not use this attribute as it uses the UUID as unique identifier and this information is 
+			  redundant (in addition to not ensuring uniqueness), but it is required for usability.  The user is free to edit the name at any time without any 
+			  side effects.
+			  </xs:documentation>
+			</xs:annotation>
+		  </xs:attribute> 
+		</xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="Volatility" type="coefficient">
+    <xs:annotation>
+      <xs:documentation>
+      Volatility measured on a scale of 0 to 1
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Concentration" type="coefficient">
+    <xs:annotation>
+      <xs:documentation>
+      Concentration measured on a scale of 0 to 1
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="HeatOfVaporization" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Heat of Vaporization, in degrees Kelvin. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="HeatOfFusion" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Heat of Fusion, in degrees Kelvin. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="VaporizationPhaseChangeActionID" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      The UUID pointing to the VaporizationPhaseChangeAction.  
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="FusionPhaseChangeActionID" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      The UUID pointing to the FusionPhaseChangeAction.  
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="MaterialLiquid">
+    <xs:complexContent>
+		<xs:extension base="MaterialBase">
+		  <xs:annotation>
+			<xs:documentation>
+			MaterialLiquid
+			</xs:documentation>
+		  </xs:annotation>  
+		  <xs:sequence>
+			  <xs:element ref="Volatility" minOccurs="0" maxOccurs="1"/>              
+			  <xs:element ref="Concentration" minOccurs="0" maxOccurs="1"/>              
+			  <xs:element ref="HeatOfVaporization" minOccurs="0" maxOccurs="1"/>              
+			  <xs:element ref="HeatOfFusion" minOccurs="0" maxOccurs="1"/>              
+			  <xs:element ref="VaporizationPhaseChangeActionID" minOccurs="0" maxOccurs="1"/>              
+			  <xs:element ref="FusionPhaseChangeActionID" minOccurs="0" maxOccurs="1"/>              
+			  <xs:element ref="MaterialPropertiesFluid" minOccurs="0" maxOccurs="1" />
+		  </xs:sequence>
+		  <xs:attribute name="displayname" type="xs:string" use="required">     
+			<xs:annotation>
+			  <xs:documentation>
+			  A clear text name for the benefit of the user.  RML does not use this attribute as it uses the UUID as unique identifier and this information is 
+			  redundant (in addition to not ensuring uniqueness), but it is required for usability.  The user is free to edit the name at any time without any 
+			  side effects.
+			  </xs:documentation>
+			</xs:annotation>
+		  </xs:attribute> 
+		</xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="Pressure" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Pressure, measured in pascals. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="HeatOfCondensation" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      Heat of Condensation, in degrees Kelvin. 
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="CondensationPhaseChangeActionID" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      The UUID pointing to the CondensationPhaseChangeAction.  
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+	<xs:complexType name="MaterialGas">
+		<xs:complexContent>
+			<xs:extension base="MaterialBase">
+				<xs:sequence>
+					<xs:element ref="Pressure" minOccurs="0" maxOccurs="1"/>              
+					<xs:element ref="HeatOfCondensation" minOccurs="0" maxOccurs="1"/>              
+					<xs:element ref="CondensationPhaseChangeActionID" minOccurs="0" maxOccurs="1"/> 
+					<xs:element ref="MaterialPropertiesFluid" minOccurs="0" maxOccurs="1" />             
+				</xs:sequence>
+				<xs:attribute name="displayname" type="xs:string" use="required">     
+					<xs:annotation>
+						<xs:documentation>
+							A clear text name for the benefit of the user.  RML does not use this attribute as it uses the UUID as unique identifier and this information is 
+							redundant (in addition to not ensuring uniqueness), but it is required for usability.  The user is free to edit the name at any time without any 
+							side effects.
+						</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:element name="Gas" type="MaterialGas"/>
+	<xs:element name="Liquid" type="MaterialGas"/>
+	<xs:element name="Solid" type="MaterialGas"/>
+
+	
+  <xs:element name="FractionalMass" type="coefficient">
+    <xs:annotation>
+      <xs:documentation>
+      Concentration measured on a scale of 0 to 1
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+	
+  <xs:element name="FractionalVolume" type="coefficient">
+    <xs:annotation>
+      <xs:documentation>
+      Concentration measured on a scale of 0 to 1
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+	<xs:element name="MaterialReference">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A member component in a composite material</xs:documentation>
+			</xs:annotation>  
+			<xs:sequence>
+				<xs:element ref="Metadata" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="FractionalMass" minOccurs="0" maxOccurs="1"/>   
+				<xs:element ref="FractionalVolume" minOccurs="0" maxOccurs="1"/>            
+			</xs:sequence>
+			<xs:attribute name="referencematerial" type="xs:string" use="required">     
+				<xs:annotation>
+					<xs:documentation>
+						The UUID pointing to the reference material
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	
+  <xs:element name="IsComposite" type="xs:boolean">
+    <xs:annotation>
+      <xs:documentation>
+		  Is the "composite" material a composite?  Meaning, are the components bound to one another, or simply mixed?
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>	
+	
+  <xs:element name="IsHomogenious" type="xs:boolean">
+    <xs:annotation>
+      <xs:documentation>
+		  Is the composite material homogenious?
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>	
+
+	
+	<xs:element name="CompositeMaterial">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A material composed of sever child materials</xs:documentation>
+			</xs:annotation>  
+			<xs:sequence>
+				<xs:element ref="MaterialReference" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="IsComposite" minOccurs="1" maxOccurs="1"/>   
+				<xs:element ref="IsHomogenious" minOccurs="1" maxOccurs="1"/>            
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>						
+		
+	<xs:element name="ListOfMaterial">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>MaterialGas</xs:documentation>
+			</xs:annotation>  
+			<xs:sequence>
+				<xs:element ref="CompositeMaterial" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Gas" minOccurs="0" maxOccurs="unbounded"/>   
+				<xs:element ref="Liquid" minOccurs="0" maxOccurs="unbounded"/>            
+				<xs:element ref="Solid" minOccurs="0" maxOccurs="unbounded"/>              
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+<!-- Stimulus -->
+	
+  <xs:element name="AnchorStimulus" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+		  A token stimulus is a stimulus that needs an anchor to be resolved.  E.g. Stimulus B is a token on stimulus A is an anchor.  Stimulus B 
+		  can only be rendered if Stimulus A is can also rendered, but Stimulus A can only be rendered a token that uses
+		  it is also rendered.   Materials are usually tokens and reference meshes that act as anchors.  The model is only rendered
+		  if it also has a skin.
+			
+		  The content of an AnchorStimulus can be anything as it is not actually used.
+		</xs:documentation>
+      </xs:annotation>  
+  </xs:element>
+	
+	
+  <xs:element name="FreeStimulus" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+		  A free stimulus is rendered independent of any others.
+		  The content of an FreeStimulus can be anything as it is not actually used.
+		</xs:documentation>
+      </xs:annotation>  
+  </xs:element>
+	
+
+  <xs:element name="TokenStimulus">
+    <xs:complexType>
+      <xs:annotation>
+      <xs:documentation>
+		  A token stimulus is a stimulus that needs an anchor to be resolved.  E.g. Stimulus B is a token on stimulus A is an anchor.  Stimulus B 
+		  can only be rendered if Stimulus A is can also rendered, but Stimulus A can only be rendered a token that uses
+		  it is also rendered.   Materials are usually tokens and reference meshes that act as anchors.  The model is only rendered
+		  if it also has a skin.    
+	  </xs:documentation>
+      </xs:annotation>  
+      <xs:sequence>
+        <xs:element ref="StimulusReference" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>	
+	
+	
+  <xs:element name="DependentStimulus">
+    <xs:complexType>
+      <xs:annotation>
+      <xs:documentation>
+		  A dependent stimulus is a stimulus that needs another stimulus to be resolved, but the refered stimulus can be rendered
+		  infependent of the dependent stimulus.  E.g. Stimulus B is dependent on stimulus A.  Stimulus B can only be rendered if
+		  Stimulus A is also rendered, but Stimulus A can still be rendered if Stimulus B is not rendered. 
+	  </xs:documentation>
+      </xs:annotation>  
+      <xs:sequence>
+        <xs:element ref="StimulusReference" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>		
+	
+
+  <xs:element name="ScriptURLServerSide" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      Any rules-related server-side scripts that need to fire based on the stimulus.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="ScriptURLClientSide" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      Used for client side scripts triggered by that stimulus. Should be restricted to view controller based display 
+      formatting if the client can���t be trusted.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="AttenuationType">
+    <xs:annotation>
+      <xs:documentation>
+      Defines the profile of the signal strength of the stimulus. For example, sound intensity is inversely 
+      proportional to the square of the distance from the source; if the distance from the source is doubled, the 
+      intensity falls to one quarter of the previous level. So a designer defining data from an acoustic source 
+      (regardless of whether he is defining the stimulus as text or as sound) may want to choose a power law falloff 
+      pattern. The standard attenuation types will be exponential falloff, linear falloff, power law falloff, and step 
+      function falloff.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+		<xs:enumeration value="Exponential" />
+		<xs:enumeration value="PowerLaw" />
+		<xs:enumeration value="Linear" />
+		<xs:enumeration value="StepFunction" />
+		<xs:enumeration value="Zonal" />
+		<xs:enumeration value="Global" />
+		<xs:enumeration value="Universal" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+	
+  <xs:element name="AttenuationConstant" type="xs:float">
+    <xs:annotation>
+      <xs:documentation>
+      This is a coefficient assigned to the attenuation type. This term is also known as the constant of 
+      proportionality.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="AttenuationCofactor" type="xs:int">
+    <xs:annotation>
+      <xs:documentation>
+      The meaning of this term is slightly different for different attenuation types. In power law and exponential 
+      falloff patterns, it is the exponent. In step function falloff, it defines the radius. In the linear case, it is 
+      not used.
+      </xs:documentation>
+    </xs:annotation>    
+  </xs:element>
+
+  <xs:element name="Attenuation">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+        Defines how a stimulus attenuates with distance.  If not present, then the stimulus is global (does not attenuate).
+        </xs:documentation>
+      </xs:annotation>  
+      <xs:sequence>
+        <xs:element ref="AttenuationType" minOccurs="1" maxOccurs="1" />              
+        <xs:element ref="AttenuationConstant" minOccurs="1" maxOccurs="1" />               
+        <xs:element ref="AttenuationCofactor" minOccurs="0" maxOccurs="1" />                        
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Channel" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      This indicates the feedback mechanism for the client (acoustic, electromagnetic, etc.) and correlates with the sensory type. It will be an object 
+      path using the same schema as the stimuli themselves.  It needs to refer to a defined ChannelDeclaration.  The designer can���t make any assumptions 
+      about how the data is displayed or even processed on the client side.  In the case of text descriptors, it also refers to the channel.   
+      </xs:documentation>
+    </xs:annotation> 
+  </xs:element>
+
+  <xs:element name="InternationalizedDescriptorReference" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>An object path pointing to the InternationalizedDescriptor.</xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="ListOfInternationalizedDescriptorReference">
+    <xs:complexType>
+      <xs:sequence>
+		<xs:element ref="InternationalizedDescriptorReference" minOccurs="1" maxOccurs="unbounded" />              
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>	
+	
+  <xs:element name="EffectDescriptorReference" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>An object path pointing to the EffectDescriptor</xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="ListOfEffectDescriptorReference">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Channel" minOccurs="1" maxOccurs="1" />               
+	<xs:element ref="EffectDescriptorReference" minOccurs="1" maxOccurs="unbounded" />              
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>	
+		
+  <xs:element name="AudioDescriptorReference" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>An object path pointing to the AudioDescriptor</xs:documentation>
+    </xs:annotation>   
+  </xs:element>	
+
+  <xs:element name="ListOfAudioDescriptorReference">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="Channel" minOccurs="1" maxOccurs="1" />               
+	<xs:element ref="AudioDescriptorReference" minOccurs="1" maxOccurs="unbounded" />              
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>	
+	
+  <xs:element name="GeometryDescriptorReference" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>An object path pointing to the GeometryDescriptor</xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="ListOfGeometryDescriptorReference">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="Channel" minOccurs="1" maxOccurs="1" />               
+	<xs:element ref="GeometryDescriptorReference" minOccurs="1" maxOccurs="unbounded" />              
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>		
+			
+  <xs:element name="CollisionGeometryDescriptorReference" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>An object path pointing to the CollisionGeometryDescriptor</xs:documentation>
+    </xs:annotation>   
+  </xs:element>	
+
+  <xs:element name="ListOfCollisionGeometryDescriptorReference">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Channel" minOccurs="1" maxOccurs="1" />               
+	<xs:element ref="CollisionGeometryDescriptorReference" minOccurs="1" maxOccurs="unbounded" />              
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+	
+  <xs:element name="MaterialDescriptorReference" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>An object path pointing to the MaterialDescriptor</xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="ListOfMaterialDescriptorReference">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Channel" minOccurs="1" maxOccurs="1" />               
+	<xs:element ref="MaterialDescriptorReference" minOccurs="1" maxOccurs="unbounded" />              
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>	
+				
+  <xs:element name="DynamicsDescriptorReference" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>An object path pointing to a DynamicsDescriptor</xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="ListOfDynamicsDescriptorReference">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Channel" minOccurs="1" maxOccurs="1" />               
+	<xs:element ref="DynamicsDescriptorReference" minOccurs="1" maxOccurs="unbounded" />              
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>	
+			
+  <xs:element name="ActionReportReference" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>An object path pointing to an ActionReportDescriptor</xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="ListOfActionReportReference">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="Channel" minOccurs="1" maxOccurs="1" />               
+	<xs:element ref="ActionReportReference" minOccurs="1" maxOccurs="unbounded" />              
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>	
+		
+  <xs:element name="CustomDescriptorReference" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>An object path pointing to a CustomDescriptor</xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+	
+  <xs:element name="ListOfCustomDescriptorReference">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Channel" minOccurs="1" maxOccurs="1" />               
+	<xs:element ref="CustomDescriptorReference" minOccurs="1" maxOccurs="unbounded" />              
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>	
+
+  <xs:element name="StimulusReference" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>An object path pointing to a stimulus.  Used for sets.</xs:documentation>
+    </xs:annotation>   
+  </xs:element>
+
+  <xs:element name="StimulusSet">
+    <xs:complexType>
+      <xs:annotation>
+	<xs:documentation>A stimulus set of some sort, either exclusive or not.</xs:documentation>
+      </xs:annotation>  
+      <xs:sequence>
+        <xs:element ref="StimulusReference" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="exclusive" type="xs:boolean" use="required">     
+        <xs:annotation>
+          <xs:documentation>
+			  If the stimuli in the set are exclusive, then the first stimulus in the set whose conditions have been met
+			  will be referenced.  Otherwise, all referenced conditions whose conditions have been met will be referenced. 
+		  </xs:documentation>
+        </xs:annotation>
+      </xs:attribute> 
+    </xs:complexType>
+  </xs:element>	
+	
+  <xs:element name="DescriptorType">
+    <xs:simpleType>
+      <xs:annotation>
+	<xs:documentation>Declares whether the stimulus (or set) is an anchor or token.  If it is non-existant, then it is neither.</xs:documentation>
+      </xs:annotation>  
+      <xs:restriction base="xs:string">
+	<xs:enumeration value="Text" />
+	<xs:enumeration value="Effect" />
+	<xs:enumeration value="Audio" />
+	<xs:enumeration value="Geometry" />
+	<xs:enumeration value="Collision" />
+	<xs:enumeration value="Material" />
+	<xs:enumeration value="Custom" />
+	<xs:enumeration value="Dynamics" />
+      </xs:restriction>
+    </xs:simpleType>  
+  </xs:element>
+
+	
+  <xs:element name="DistributionParadigm">
+    <xs:simpleType>
+    <xs:annotation>
+      <xs:documentation>
+		  Whether the agent or the controller is the final determinant for distribution.  
+      </xs:documentation>
+    </xs:annotation>  
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="agent" />
+        <xs:enumeration value="controller" />
+      </xs:restriction>
+    </xs:simpleType> 
+  </xs:element>	
+	
+	
+  <xs:element name="ListOfEndorsedTemplate">
+    <xs:complexType>
+		<xs:annotation>
+		  <xs:documentation>
+			  An whitelistlist of controller templates. 
+		  </xs:documentation>
+		</xs:annotation>
+      <xs:sequence>
+        <xs:element ref="EndorsedTemplate" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+
+    </xs:complexType>
+  </xs:element>
+	
+	
+  <xs:element name="EndorsedTemplate" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+		  An individual controller template to go into the channel's whitelist
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>	
+			
+  <xs:element name="ChannelDeclaration">
+    <xs:complexType>
+      <xs:annotation>
+		<xs:documentation>
+			This is a single sensory type.    
+		</xs:documentation>
+      </xs:annotation>     
+      <xs:sequence>
+        <xs:element ref="Description" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="DescriptorType" minOccurs="1" maxOccurs="1" />      
+		<xs:element ref="DistributionParadigm" minOccurs="1" maxOccurs="1" />   
+		<xs:element ref="ListOfEndorsedTemplate" minOccurs="0" maxOccurs="1" />    
+      </xs:sequence>
+		<xs:attribute name="templateName" type="xs:string" use="required">     
+			<xs:annotation>
+				<xs:documentation>
+				  The unique (within a module) name of the template.  See http://rulesetmodeling.wiki.sourceforge.net/templatePaths for full details.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute> 
+    </xs:complexType>
+  </xs:element>	
+					
+	<xs:element name="ListOfChannelDeclaration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ChannelDeclaration" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+
+  <xs:element name="ChannelSubscription" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+		  The channels that the controller will subscribe to by default
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>	
+		
+	<xs:element name="ListOfChannelSubscription">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ChannelSubscription" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+		
+  <xs:element name="ControllerDeclaration">
+    <xs:complexType>
+      <xs:annotation>
+		<xs:documentation>
+			A declaration of a single controller type.    
+		</xs:documentation>
+      </xs:annotation>     
+      <xs:sequence>
+        <xs:element ref="ListOfChannelSubscription" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="ListOfWhitelistActions" minOccurs="0" maxOccurs="1" /> 
+		<xs:element ref="ListOfSubscribedDescriptorType" minOccurs="0" maxOccurs="1" />     
+      </xs:sequence>
+		<xs:attribute name="templateName" type="xs:string" use="required">     
+			<xs:annotation>
+				<xs:documentation>
+				  The unique (within a module) name of the template.  See http://rulesetmodeling.wiki.sourceforge.net/templatePaths for full details.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute> 
+    </xs:complexType>
+  </xs:element>		
+	
+	
+	<xs:element name="ListOfControllerDeclaration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ControllerDeclaration" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	
+  <xs:element name="SubscribedDescriptorType" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+		  The channels that the controller will subscribe to by default
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>	 	
+		
+
+	<xs:element name="ListOfSubscribedDescriptorType">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SubscribedDescriptorType" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>	
+	
+
+	<xs:element name="Stimulus">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>
+					This is a single type of stimulus, such as the smell of roses.       
+				</xs:documentation>
+			</xs:annotation>     
+			<xs:sequence>
+				<xs:element ref="Description" minOccurs="1" maxOccurs="1" />  
+				<xs:element ref="Taxonomy" minOccurs="1" maxOccurs="1" /> 
+				<xs:element ref="Channel" minOccurs="1" maxOccurs="1" />
+				<xs:choice>
+					<xs:element ref="AnchorStimulus" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="TokenStimulus" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="DependentStimulus" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="FreeStimulus" minOccurs="1" maxOccurs="1" /> 	
+				</xs:choice>
+				<xs:element ref="Condition" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="Priority" minOccurs="0" maxOccurs="1" />    
+				<xs:element ref="Attenuation" minOccurs="0" maxOccurs="1" />
+				<!-- <xs:element ref="ListOfEvents" minOccurs="0" maxOccurs="1" /> -->
+				<xs:choice>
+					<xs:element ref="StimulusSet" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="ListOfInternationalizedDescriptorReference" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="ListOfEffectDescriptorReference" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="ListOfAudioDescriptorReference" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="ListOfGeometryDescriptorReference" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="ListOfCollisionGeometryDescriptorReference" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="ListOfMaterialDescriptorReference" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="ListOfDynamicsDescriptorReference" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="ListOfActionReportReference" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="ListOfCustomDescriptorReference" minOccurs="1" maxOccurs="1" />
+				</xs:choice>
+			</xs:sequence>
+			  <xs:attribute name="templateName" type="xs:string" use="required">     
+				<xs:annotation>
+				  <xs:documentation>
+					  The unique (within a module) name of the template.  See http://rulesetmodeling.wiki.sourceforge.net/templatePaths for full details.
+				  </xs:documentation>
+				</xs:annotation>
+			  </xs:attribute> 
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ListOfStimulus">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Stimulus" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	
+<!-- Stimulus Descriptor Declarations -->
+	
+	<xs:element name="ListOfStimulusDescriptor">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ListOfDescriptorToken" minOccurs="0" maxOccurs="1" />     
+				<xs:element ref="ListOfInternationalizedDescriptor" minOccurs="0" maxOccurs="1" />   
+			</xs:sequence>
+		</xs:complexType>  
+	</xs:element>
+	
+
+<!-- Text Tokens -->
+  <xs:element name="ConditionalDescriptor">
+    <xs:complexType>
+      <xs:simpleContent>
+	<xs:extension base="xs:string">
+          <xs:attribute name="condition" type="xs:string" use="required">
+	    <xs:annotation>
+	      <xs:documentation>A condition/descriptor pair.  If the condition is triggered, then the descriptor is called</xs:documentation>
+	    </xs:annotation> 
+	  </xs:attribute>
+	</xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+	
+  <xs:element name="DefaultDescriptor" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+      The default descriptor called if none of the conditions are True
+      </xs:documentation>
+    </xs:annotation>  
+  </xs:element>
+
+
+  <xs:element name="ListOfDescriptor">
+    <xs:complexType>
+		<xs:sequence>
+			<xs:element ref="ConditionalDescriptor" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element ref="DefaultDescriptor" minOccurs="1" maxOccurs="1" />			
+		</xs:sequence>
+    </xs:complexType>
+  </xs:element>
+			
+	
+  <xs:element name="DescriptorToken">
+    <xs:complexType>
+      <xs:sequence>
+		<xs:element ref="Description" minOccurs="0" maxOccurs="1" />
+		<xs:element ref="ListOfDescriptor" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="templateName" type="xs:string" use="required">     
+        <xs:annotation>
+          <xs:documentation>
+			  The unique (within a module) name of the template.  See http://rulesetmodeling.wiki.sourceforge.net/templatePaths for full details.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute> 
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ListOfDescriptorToken">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="DescriptorToken" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>	
+	
+<!-- Text Descriptors -->
+
+  <xs:element name="SimpleToken">
+	<xs:complexType>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="anchor" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>
+							A simple token is simply an argument key for simple value replacement.  
+							The tag is used for internal reference within a localized descriptor
+						</xs:documentation>
+					</xs:annotation> 
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+  </xs:element>		
+
+
+  <xs:element name="ComplexToken">
+	<xs:complexType>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="anchor" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>
+							A pointer to a the UUID of a complex Token.  
+							The tag is used for internal reference within a localized descriptor
+						</xs:documentation>
+					</xs:annotation> 
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+  </xs:element>			
+		
+	
+  <xs:element name="Text" type="xs:string">
+	<xs:annotation>
+		<xs:documentation>
+			The language specific text of the descriptor.
+        </xs:documentation>
+	</xs:annotation>
+  </xs:element>	
+
+	
+  <xs:element name="LocalizedDescriptor">
+    <xs:complexType>
+		<xs:sequence>
+			<xs:element ref="Text" minOccurs="1" maxOccurs="1" />               
+			<xs:element ref="SimpleToken" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element ref="ComplexToken" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="language" type="xs:language" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					The ISO 639-1 language code of the localized language.
+				</xs:documentation>
+			</xs:annotation>   
+		</xs:attribute>
+	 </xs:complexType>
+  </xs:element>	
+	
+		
+  <xs:element name="InternationalizedDescriptor">
+    <xs:complexType>
+		<xs:sequence>
+			<xs:element ref="Documentation" minOccurs="0" maxOccurs="1" />
+			<xs:element ref="LocalizedDescriptor" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="devlanguage" type="xs:language" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					The ISO 639-1 language code of the language used in initially developing the descriptor.  This should be the root for all translations.   
+				</xs:documentation>
+			</xs:annotation>   
+		</xs:attribute>
+		<xs:attribute name="templateName" type="xs:string" use="required">     
+			<xs:annotation>
+				<xs:documentation>
+				  The unique (within a module) name of the template.  See http://rulesetmodeling.wiki.sourceforge.net/templatePaths for full details.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute> 
+	 </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ListOfInternationalizedDescriptor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="InternationalizedDescriptor" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>  
+  </xs:element>
+	
+	
+<!--   END DEPRICATED BLOCK -->
+<!-- Metameme Stuff -->	
+	
+	<xs:element name="Description" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				General Description Element
+			</xs:documentation>
+		</xs:annotation> 
+	</xs:element>
+
+	<xs:element name="RestrictionValueString" type="xs:string">
+		<xs:annotation>
+		<xs:documentation>A restriction value for an ornament</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="RestrictionValueInteger" type="xs:integer">
+		<xs:annotation>
+		<xs:documentation>A restriction value for an ornament</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="RestrictionValueDecimal" type="xs:decimal">
+		<xs:annotation>
+		<xs:documentation>A restriction value for an ornament</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:element name="RestrictionMinMaxDecimal">
+		<xs:complexType>
+			<xs:attribute name="restrictionMin" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="restrictionMax" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal"/>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="RestrictionMinMaxInteger">
+		<xs:complexType>
+			<xs:attribute name="restrictionMin" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="restrictionMax" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer"/>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>	
+	
+	<xs:element name="PropertyRestriction">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element ref="RestrictionMinMaxInteger" minOccurs="0" maxOccurs="1" />
+					<xs:element ref="RestrictionMinMaxDecimal" minOccurs="0" maxOccurs="1" />
+					<xs:element ref="RestrictionValueString" minOccurs="0" maxOccurs="unbounded" />		
+					<xs:element ref="RestrictionValueInteger" minOccurs="0" maxOccurs="unbounded" />
+					<xs:element ref="RestrictionValueDecimal" minOccurs="0" maxOccurs="unbounded" />	
+				</xs:choice> 
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						The template path of the restriction
+					</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+		</xs:complexType>		
+	</xs:element>
+
+	
+	<xs:element name="PropertyDescription" type="xs:string">
+		<xs:annotation>
+		<xs:documentation>The description of a property</xs:documentation>
+		</xs:annotation>
+	</xs:element>	
+		
+	<xs:element name="MetaMemeProperty">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="PropertyDescription" minOccurs="0" maxOccurs="1" />            
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="string"/>
+						<xs:enumeration value="integer"/>
+						<xs:enumeration value="boolean"/>
+						<xs:enumeration value="decimal"/>
+						<xs:enumeration value="list"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="restriction" type="xs:string" use="optional"/>
+			<xs:attribute name="constrained" type="xs:boolean" use="optional"/>
+		</xs:complexType>		
+	</xs:element>
+	
+	<xs:element name="MemberMetaMeme">
+		<xs:complexType>
+			<xs:attribute name="reference" type="xs:string" use="required"/>
+			<xs:attribute name="min" type="xs:integer" use="optional"/>
+			<xs:attribute name="max" type="xs:integer" use="optional"/>
+		</xs:complexType>		
+	</xs:element>
+	
+	<xs:element name="MetaMemeID" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The template path of the metameme to be extended or enhanced</xs:documentation>
+		</xs:annotation> 		
+	</xs:element>
+	
+	<xs:element name="MemeID" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The template path of the meme to be enhanced</xs:documentation>
+		</xs:annotation> 		
+	</xs:element>
+
+	
+	<xs:element name="MetaMemeExtensions">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MetaMemeID" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>		
+	</xs:element>	
+	
+	
+	<xs:element name="MetaMemeEnhancements">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MetaMemeID" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>		
+	</xs:element>
+	
+	<xs:element name="MemeEnhancements">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MemeID" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>		
+	</xs:element>
+
+
+	<xs:element name="MetaMeme"> 
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MetaMemeExtensions" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="MetaMemeEnhancements" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="MetaMemeProperty" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="MemberMetaMeme" minOccurs="0" maxOccurs="unbounded" /> 
+				<xs:element ref="ImplicitMemeMasterData" minOccurs="0" maxOccurs="1"  />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The template path of the metameme</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="singleton" type="xs:boolean" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						Whether the metameme is a singleton or not.  If either the meme or metameme is declared 
+						to be a singleton, then the meme is a singleton.  (If the metameme is True and the meme is false,
+						then the meme is a singleton).  A singleton RML entity would be created once, at server startup.  
+						Every time an attempt is made to instantiate an entity from that meme, a reference to the singleton 
+						would be returned instead. 
+					</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="switch" type="xs:boolean" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						If the MetaMeme is defined as a switch, then only ONE metameme child may be included.
+						It essentially defines the entine member metameme list as exclusive.
+					</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+		    <xs:attribute name="dynamic">
+				<xs:annotation>
+					<xs:documentation>
+						If the metameme has implicit memes, then they will be drawn from a database table. 
+					</xs:documentation>
+				</xs:annotation> 
+				<xs:simpleType>
+				    <xs:restriction base="xs:string">
+				        <xs:enumeration value="implicit"/>
+				        <xs:enumeration value="cloneable"/>
+				    </xs:restriction>
+				</xs:simpleType>
+		    </xs:attribute>
+			<!-- <xs:attribute name="implicitMeme" type="xs:boolean" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						If the metameme has implicit memes, then they will be drawn from a database table. 
+					</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute> -->
+		</xs:complexType>		
+	</xs:element>
+	
+	
+	<xs:element name="MemberMeme">
+		<xs:complexType>
+			<xs:attribute name="memberID" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The id of the member meme</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="occurrence" type="xs:integer" use="required">
+				<xs:annotation>
+					<xs:documentation>The id of the member meme</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="ClonedMembers">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ClonedMember" minOccurs="0" maxOccurs="unbounded" /> 
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="ImplicitMemeMasterData">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="PropertySource" minOccurs="0" maxOccurs="unbounded" /> 
+				<xs:element ref="Relationships" minOccurs="0" maxOccurs="1" /> 
+			</xs:sequence>
+			<xs:attribute name="table" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Which DB table is the meme being filled from</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="primaryKeyColumn" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>Column in the DB table which contains the primary key.  The memeID will become [table].[primaryKeyColumn]</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="PropertySource">
+		<xs:complexType>
+			<xs:attribute name="property" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The property of the ImplicitMemeMasterData property/column pair.  This attribute declares which property is being filled.</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="column" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The column of the ImplicitMemeMasterData property/column pair.  This attribute declares which DB column, the property will be filled from.</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:element name="Relationships">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BackReference" minOccurs="0" maxOccurs="unbounded" /> 
+				<xs:element ref="ForwardReference" minOccurs="0" maxOccurs="unbounded" /> 
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>	
+
+
+	<xs:element name="ClonedMember">
+		<xs:complexType>
+			<xs:attribute name="memberMetaMeme" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The id of the member meme</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="BackReference">
+		<xs:complexType>
+			<xs:attribute name="table" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>When there is a back reference, it is coming from another implicit meme.  Essentially, is is a descendant node of a hierarchy, which is ecplicitly pointing 
+					to this one as an ancestor.  An example would be with inventory.  For example, mob A might have item B in his inventory.  With a back reerence, the table for item B contains 
+					a reference column (essentially a foreign key) to the primary key of mob A</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="childColumn" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The column of the decendant table, which contains the primary key of the child.</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="parentColumn" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The column of the decendant table, which contains the back reference (foreign key).</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="backReferenceColumn" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The column of the decendant table, which contains the primary key of the antescedent.</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="traversePath" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The template path to the descendant.  It may contain multiple hops.</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="ForwardReference">
+		<xs:complexType>
+			<xs:attribute name="table" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>When there is a forward reference, it is pointing to another implicit meme; a descendant node of a hierarchy.</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="childColumn" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The column of the descandant table, which contains the primary key of the child.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="parentColumn" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The column of the origin table, which contains the reference (foreign key).</xs:documentation>
+				</xs:annotation>     
+			</xs:attribute>
+			<xs:attribute name="traversePath" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The template path to the descendant.  It may contain multiple hops.</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="MemeProperty">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The name of the property</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="value" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The default value of the property</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+		
+	
+	<xs:element name="ListOfTag">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Tag" minOccurs="0" maxOccurs="unbounded" />  
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+		
+	<xs:element name="Meme">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MemeProperty" minOccurs="0" maxOccurs="unbounded" />  
+				<xs:element ref="MemberMeme" minOccurs="0" maxOccurs="unbounded" /> 
+				<xs:element ref="MemeEnhancements" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="ClonedMembers" minOccurs="0" maxOccurs="1" /> 
+				<xs:element ref="ListOfTag" minOccurs="0" maxOccurs="1" />   
+				<xs:element ref="Description" minOccurs="0" maxOccurs="1" />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The template path of the meme</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="metameme" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The template path of the metameme from which the meme is derived</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="singleton" type="xs:boolean" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						Whether the meme is a singleton or not.  If either the meme or metameme is declared 
+						to be a singleton, then the meme is a singleton.  (If the metameme is True and the meme is false,
+						then the meme is a singleton).  A singleton RML entity would be created once, at server startup.  
+						Every time an attempt is made to instantiate an entity from that meme, a reference to the singleton 
+						would be returned instead. 
+					</xs:documentation>
+				</xs:annotation>   
+			</xs:attribute>
+			<xs:attribute name="implicitMeme" type="xs:boolean" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						I the metameme has the implicitMeme attribute set, we have to option o setting this attribute to true.
+						I we do, then this meme will be used as the placeholder for all of the implicit mems defined in the
+						given relational table.  
+					</xs:documentation>
+				</xs:annotation>  
+			</xs:attribute>
+		</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="ListOfPropertyRestriction">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="PropertyRestriction" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>  
+	</xs:element>
+	
+	<xs:element name="ListOfMetaMeme">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MetaMeme" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>  
+	</xs:element>
+	
+	<xs:element name="ListOfMeme">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Meme" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>  
+	</xs:element>
+	
+	
+	
+	
+</xs:schema>

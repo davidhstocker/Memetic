@@ -3,6 +3,7 @@ import decimal
 import random
 from . import Condition
 import Graphyne.Scripting as Scripting
+import Graphyne.Graph as Graph
 import Graphyne.Exceptions as Exceptions
 
 script = Scripting.API()
@@ -258,7 +259,8 @@ class InitValueNumeric(Scripting.StateEventScript):
                 script.installPythonExecutor(functionContainerUUID, newValueNumeric)
                 script.setEntityPropertyValue(functionContainerUUID, "Value", propertyValue)
                 uuidAsStr = str(functionContainerUUID)
-                logStatement = "Added executor object to %s Function %s" %(path, uuidAsStr)
+                memeType = Graph.api.getEntityMemeType(functionContainerUUID)
+                logStatement = "Added executor object to %s entity %s" %(memeType, uuidAsStr)
                 script.writeLog(logStatement)
         except Exception as e:
             #debugger aid
