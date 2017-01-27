@@ -17,7 +17,7 @@
 				</xs:documentation>
 			</xs:annotation>     
 			<xs:sequence>
-				<xs:element ref="Metadata" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="Metadata" minOccurs="0" maxOccurs="1"/>
 				<!-- Depricated Elements 
 				<xs:element ref="ListOfChannelDeclaration" minOccurs="0" maxOccurs="1" />
 				<xs:element ref="ListOfControllerDeclaration" minOccurs="0" maxOccurs="1" />
