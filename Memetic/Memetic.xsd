@@ -3672,6 +3672,19 @@
 					<xs:documentation>The id of the member meme</xs:documentation>
 				</xs:annotation>   
 			</xs:attribute>
+		    <xs:attribute name="linktype">
+				<xs:annotation>
+					<xs:documentation>
+						Determines whether or not the member link is atomic or subatomic.  (defaut is atomic). 
+					</xs:documentation>
+				</xs:annotation> 
+				<xs:simpleType>
+				    <xs:restriction base="xs:string">
+				        <xs:enumeration value="subatomic"/>
+				        <xs:enumeration value="atomic"/>
+				    </xs:restriction>
+				</xs:simpleType>
+		    </xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	
